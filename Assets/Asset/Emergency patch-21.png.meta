@@ -1,0 +1,254 @@
+fileFormatVersion: 2
+guid: 80c7894e72d1e0e4db44349b14d511b7
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -9068933502430680944
+    second: Emergency patch-21_0
+  - first:
+      213: -2462721624971416805
+    second: Emergency patch-21_1
+  - first:
+      213: 2408636339217820896
+    second: Emergency patch-21_2
+  - first:
+      213: 429051661239249914
+    second: Emergency patch-21_3
+  - first:
+      213: 6972975884554456167
+    second: Emergency patch-21_4
+  - first:
+      213: -9051916794282044443
+    second: Emergency patch-21_5
+  - first:
+      213: -7946488847483015465
+    second: Emergency patch-21_6
+  - first:
+      213: 7521484637799976662
+    second: Emergency patch-21_7
+  - first:
+      213: 8966914398250828093
+    second: Emergency patch-21_8
+  - first:
+      213: -1903107176154694534
+    second: Emergency patch-21_9
+  - first:
+      213: -2676612438406072316
+    second: Emergency patch-21_10
+  - first:
+      213: 3715111348133426298
+    second: Emergency patch-21_11
+  - first:
+      213: -674289369236631723
+    second: Emergency patch-21_12
+  - first:
+      213: 3890229968549536117
+    second: Emergency patch-21_13
+  - first:
+      213: 9185406841351506831
+    second: Emergency patch-21_14
+  - first:
+      213: 7490001673604581858
+    second: Emergency patch-21_15
+  - first:
+      213: 2536562168997421509
+    second: Emergency patch-21_16
+  - first:
+      213: -5940558528887917869
+    second: Emergency patch-21_17
+  - first:
+      213: -7132387101557861880
+    second: Emergency patch-21_18
+  - first:
+      213: 4554017786054188042
+    second: Emergency patch-21_19
+  - first:
+      213: -7784018242216111339
+    second: Emergency patch-21_20
+  - first:
+      213: 2754847005003149238
+    second: Emergency patch-21_21
+  - first:
+      213: -1641347469082136336
+    second: Emergency patch-21_22
+  - first:
+      213: -1027415137532720757
+    second: click
+  - first:
+      213: -8200234846158976415
+    second: clicking
+  - first:
+      213: 4906541668804835152
+    second: Emergency patch-21_25
+  - first:
+      213: 7836895606251763021
+    second: Emergency patch-21_26
+  - first:
+      213: -7765098561576937709
+    second: Emergency patch-21_27
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: click
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 1134
+        width: 328
+        height: 323
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b89c08a3063edb1f0800000000000000
+      internalID: -1027415137532720757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clicking
+      rect:
+        serializedVersion: 2
+        x: 552
+        y: 1129
+        width: 329
+        height: 328
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16a0ae7aad9e23e80800000000000000
+      internalID: -8200234846158976415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

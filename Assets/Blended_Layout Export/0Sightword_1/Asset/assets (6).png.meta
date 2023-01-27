@@ -1,0 +1,476 @@
+fileFormatVersion: 2
+guid: d0f55aa904c1e2747880b38cd979f84a
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8048673359714886905
+    second: assets (6)_0
+  - first:
+      213: -8869552153033672960
+    second: assets (6)_1
+  - first:
+      213: 7942410142653984651
+    second: assets (6)_2
+  - first:
+      213: 880794588735535545
+    second: assets (6)_3
+  - first:
+      213: -3068874172755544078
+    second: assets (6)_4
+  - first:
+      213: 3376097803745148849
+    second: assets (6)_5
+  - first:
+      213: 3722384338126465160
+    second: assets (6)_6
+  - first:
+      213: 180600295219078134
+    second: assets (6)_7
+  - first:
+      213: -2348618284182878397
+    second: assets (6)_8
+  - first:
+      213: 1062375609516406456
+    second: assets (6)_9
+  - first:
+      213: -586979356965936868
+    second: assets (6)_10
+  - first:
+      213: -2746274875846203049
+    second: assets (6)_11
+  - first:
+      213: 7934772015296850886
+    second: assets (6)_12
+  - first:
+      213: -3858487202059277817
+    second: assets (6)_13
+  - first:
+      213: -4414918443643342699
+    second: assets (6)_14
+  - first:
+      213: -1646178283332498700
+    second: assets (6)_15
+  - first:
+      213: 97335992600189385
+    second: assets (6)_16
+  - first:
+      213: 7062296699750107963
+    second: assets (6)_17
+  - first:
+      213: -987628086333043373
+    second: assets (6)_18
+  - first:
+      213: 5589692199977213250
+    second: assets (6)_19
+  - first:
+      213: 2833401310473988319
+    second: assets (6)_20
+  - first:
+      213: 8254497946837057657
+    second: assets (6)_21
+  - first:
+      213: 3596441472215066131
+    second: assets (6)_22
+  - first:
+      213: -8221786280355708116
+    second: assets (6)_23
+  - first:
+      213: 6891429638775129889
+    second: assets (6)_24
+  - first:
+      213: -6571349630358827709
+    second: assets (6)_25
+  - first:
+      213: 1008470497117056007
+    second: assets (6)_26
+  - first:
+      213: -7223663601774458582
+    second: assets (6)_27
+  - first:
+      213: 664537920242079964
+    second: assets (6)_28
+  - first:
+      213: -8790618070463315347
+    second: assets (6)_29
+  - first:
+      213: 3113598155658592598
+    second: assets (6)_30
+  - first:
+      213: 1293018451968496464
+    second: assets (6)_31
+  - first:
+      213: 6261161731356448217
+    second: assets (6)_32
+  - first:
+      213: -5351322639054703938
+    second: assets (6)_33
+  - first:
+      213: -5853524414487777642
+    second: assets (6)_34
+  - first:
+      213: 1505372350704794905
+    second: assets (6)_35
+  - first:
+      213: 9080941874721105673
+    second: assets (6)_36
+  - first:
+      213: 7830469153781223693
+    second: assets (6)_37
+  - first:
+      213: -2554612437363519186
+    second: assets (6)_38
+  - first:
+      213: 2377238047315305919
+    second: assets (6)_39
+  - first:
+      213: -8520083285184253235
+    second: assets (6)_40
+  - first:
+      213: -4776002083462909025
+    second: assets (6)_41
+  - first:
+      213: 7351143363081515993
+    second: assets (6)_42
+  - first:
+      213: 6339099322236828767
+    second: assets (6)_43
+  - first:
+      213: -2554410708660434081
+    second: assets (6)_44
+  - first:
+      213: -1887823797283307400
+    second: assets (6)_45
+  - first:
+      213: -7316564027703766370
+    second: assets (6)_46
+  - first:
+      213: -7889826629657345701
+    second: assets (6)_47
+  - first:
+      213: -4575406990094533951
+    second: assets (6)_48
+  - first:
+      213: -1301738223790399090
+    second: assets (6)_49
+  - first:
+      213: 8506163672576245003
+    second: assets (6)_50
+  - first:
+      213: 837275482929392137
+    second: assets (6)_51
+  - first:
+      213: -7979910967057901663
+    second: assets (6)_52
+  - first:
+      213: -1686048169413833844
+    second: assets (6)_53
+  - first:
+      213: 831470134319232751
+    second: assets (6)_54
+  - first:
+      213: -8276357181659533724
+    second: assets (6)_55
+  - first:
+      213: 9044553142840278167
+    second: assets (6)_56
+  - first:
+      213: -5676852122023550633
+    second: assets (6)_57
+  - first:
+      213: -4144897281673564404
+    second: assets (6)_58
+  - first:
+      213: 6538688047673864975
+    second: assets (6)_59
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: assets (6)_51
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 3725
+        width: 3919
+        height: 263
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90a662b9d999e9b00800000000000000
+      internalID: 837275482929392137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: assets (6)_52
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 2608
+        width: 3081
+        height: 944
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a7154d3149a14190800000000000000
+      internalID: -7979910967057901663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: assets (6)_53
+      rect:
+        serializedVersion: 2
+        x: 3135
+        y: 2608
+        width: 930
+        height: 944
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8b04eb7f14f998e0800000000000000
+      internalID: -1686048169413833844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: assets (6)_55
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 2121
+        width: 3894
+        height: 314
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46e2ee84ef8742d80800000000000000
+      internalID: -8276357181659533724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: assets (6)_56
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 96
+        width: 2662
+        height: 1889
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79c332fc925b48d70800000000000000
+      internalID: 9044553142840278167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: assets (6)_57
+      rect:
+        serializedVersion: 2
+        x: 2832
+        y: 656
+        width: 528
+        height: 768
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7512d508215c731b0800000000000000
+      internalID: -5676852122023550633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: assets (6)_58
+      rect:
+        serializedVersion: 2
+        x: 3531
+        y: 1179
+        width: 517
+        height: 803
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0f6d5702ed5a76c0800000000000000
+      internalID: -4144897281673564404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: assets (6)_59
+      rect:
+        serializedVersion: 2
+        x: 3519
+        y: 2
+        width: 514
+        height: 853
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0371bac2261eba50800000000000000
+      internalID: 6538688047673864975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
