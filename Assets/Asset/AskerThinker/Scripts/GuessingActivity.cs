@@ -7,10 +7,13 @@ using TMPro;
 public class GuessingActivity : MonoBehaviour
 {
     //audio
-    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioSource voSource;
+    [SerializeField] private AudioSource seSource;
     [SerializeField] private AudioClip fall;
-    //[SerializeField] private AudioClip whoosh;
     [SerializeField] private AudioClip balloonPop;
+    [SerializeField] private AudioClip whoosh;
+    [SerializeField] private AudioClip buttonClick;
+    [SerializeField] private AudioClip blackScreenClip;
 
     //text
     [SerializeField] private TextMeshProUGUI[] guessAnswers;
@@ -24,6 +27,8 @@ public class GuessingActivity : MonoBehaviour
     //GO
     [SerializeField] private GameObject saved;
     [SerializeField] private GameObject popTheBalloon;
+    [SerializeField] private GameObject whiteScreen;
+    [SerializeField] private GameObject blackScreen;
     [SerializeField] private GameObject[] questionBalloons;
 
     private int i = 0;
@@ -31,9 +36,14 @@ public class GuessingActivity : MonoBehaviour
 
     private void Start()
     {
-        guessInputField[i].onValueChanged.AddListener(delegate { OnGuessEnteredCheck(); });
+        StartCheckingForChildInput();
 
         childsGuessAnswers = new Dictionary<int, string>();
+    }
+
+    private void StartCheckingForChildInput()
+    {
+        guessInputField[i].onValueChanged.AddListener(delegate { OnGuessEnteredCheck(); });
     }
 
     public void OnGuessEnteredCheck()
@@ -52,31 +62,38 @@ public class GuessingActivity : MonoBehaviour
     {
         //store the answer
         childsGuessAnswers.Add(i + 1, guessAnswers[i].text);
-
+        PlayVO(buttonClick);
         saved.SetActive(true);
 
         //show answer stored confirmation to child
-        Invoke("Save", 1f);
-
-
+        Invoke("Save", 0.5f);
     }
 
     public void Save()
     {
         guessInputField[i].GetComponent<Animator>().SetTrigger("Disappear");
+        PlayVO(whoosh);
+        btnSubmit.gameObject.SetActive(false);
+        guessInputField[i].text = "";
+        whiteScreen.SetActive(false);
 
+        Invoke("ShowPopTheBalloon", 1.5f);
+    }
+
+    public void ShowPopTheBalloon()
+    {
         //ask child to pop the balloon
         popTheBalloon.SetActive(true);
+        saved.SetActive(false);
     }
 
     public void OnClickBalloon()
     {
         //balloon pop
         PlaySE(balloonPop);
-        popTheBalloon.SetActive(false);
 
         //play balloon pop animation
-        questionBalloons[i].GetComponent<Animator>().SetTrigger("Pop");
+        questionBalloons[i].GetComponent<Animator>().SetTrigger("Pop" + (i + 1));
 
         Invoke("QuestionFalling", 0.5f);
     }
@@ -85,20 +102,42 @@ public class GuessingActivity : MonoBehaviour
     {
         //paper falling
         questionBalloons[i].transform.GetChild(0).GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-
+        popTheBalloon.SetActive(false);
+        PlaySE(fall);
         Invoke("SpawnNextBalloon", 2.5f);
     }
 
     public void SpawnNextBalloon()
     {
         i++;
+
+        if (i == questionBalloons.Length)
+        {
+            Invoke("ShowBlackScreen", 1f);
+        }
+
+
         questionBalloons[i].SetActive(true);
-        PlaySE(fall);
+        whiteScreen.SetActive(true);
+        StartCheckingForChildInput();
+        questionBalloons[i - 1].SetActive(false);
     }
 
     public void PlaySE(AudioClip clip)
     {
-        audioSource.clip = clip;
-        audioSource.Play();
+        seSource.clip = clip;
+        seSource.Play();
+    }
+
+    public void PlayVO(AudioClip clip)
+    {
+        voSource.clip = clip;
+        voSource.Play();
+    }
+
+    public void ShowBlackScreen()
+    {
+        PlaySE(blackScreenClip);
+        blackScreen.SetActive(true);
     }
 }
