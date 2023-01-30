@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class DrawingActivity : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public const float RESOLUTION = 0.1f;
+    //line
+    [SerializeField] private Camera _camera;
+    [SerializeField] private Line _linePrefab;
+    private Line _currentLine;
 
-    // Update is called once per frame
-    void Update()
+
+    private void Update()
     {
-        
+        Vector2 mousePos = _camera.ScreenToWorldPoint(Input.mousePosition);
+
+        if (Input.GetMouseButtonDown(0))
+            _currentLine = Instantiate(_linePrefab, mousePos, Quaternion.identity);
+
+
+        if (Input.GetMouseButton(0))
+            _currentLine.SetPosition(mousePos);
+
+
     }
 }
