@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9a8fe09b200470f449b156a54af7cb6b
+guid: 70ba56a3fb68b074eb0a035ccda37d78
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -65,7 +65,7 @@ TextureImporter:
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
-    compressionQuality: 50
+    compressionQuality: 25
     crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
@@ -77,7 +77,7 @@ TextureImporter:
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
-    compressionQuality: 50
+    compressionQuality: 25
     crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
@@ -89,7 +89,7 @@ TextureImporter:
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
-    compressionQuality: 50
+    compressionQuality: 25
     crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
@@ -101,7 +101,7 @@ TextureImporter:
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
-    compressionQuality: 50
+    compressionQuality: 25
     crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
@@ -113,7 +113,7 @@ TextureImporter:
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
-    compressionQuality: 50
+    compressionQuality: 25
     crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
