@@ -9,7 +9,9 @@ public class DrawingActivity : MonoBehaviour
 
     LineRenderer currentLineRenderer;
     Vector2 lastPos;
-
+    Vector3 fPos;
+    Vector3 lPos;
+    Vector2[] arrLineRendererPositions;
 
     //audio
     [SerializeField] private AudioSource audioSource;
@@ -21,16 +23,14 @@ public class DrawingActivity : MonoBehaviour
     //color
     [SerializeField] private Color[] colorList;
 
-    private Color curColor;
+    private int currentToolIndex;
     private int colorCount;
+    private Texture2D currentTool;
 
 
     private void Start()
     {
-        //setting default violet color brush
-        //brushTexture[8] is the default black color paint bucket cursor
-        Cursor.SetCursor(brushTexture[3], new Vector2(brushTexture[0].width / 8, brushTexture[0].height), CursorMode.ForceSoftware);
-
+        currentToolIndex = 0;
     }
 
 
@@ -54,6 +54,10 @@ public class DrawingActivity : MonoBehaviour
                 lastPos = mousePos;
             }
         }
+        else if (Input.GetKeyUp(KeyCode.Mouse0))
+        {
+            GenerateMesh();
+        }
     }
 
     void CreateBrush()
@@ -74,4 +78,56 @@ public class DrawingActivity : MonoBehaviour
         currentLineRenderer.SetPosition(positionIndex, pointPos);
     }
 
+    public void OnClickTool(int i)
+    {
+        currentTool = brushTexture[i];
+
+        if (i == 0)
+        {
+            //pen
+
+
+        }
+        else if (i == 1)
+        {
+            //color bucket
+
+
+        }
+        else if (i == 2)
+        {
+            //delete
+
+
+        }
+
+        //setting default violet color brush
+        //brushTexture[8] is the default black color paint bucket cursor
+        Cursor.SetCursor(currentTool, new Vector2(brushTexture[0].width / 12, brushTexture[0].height), CursorMode.ForceSoftware);
+    }
+
+    void OnDestroy()
+    {
+        ResetCursor();
+    }
+
+    public void ResetCursor()
+    {
+        //resetting the cursor from brush to normal
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+    }
+
+    public void GenerateMesh()
+    {
+        Debug.Log(currentLineRenderer.positionCount);
+
+        arrLineRendererPositions = new Vector2[currentLineRenderer.positionCount];
+
+        //creating gameobject with components polygon collider, mesh filter, mesh renderer and making it child of line renderer
+        GameObject go = MakePolygonCollider2D.Create(arrLineRendererPositions);
+        go.transform.parent = currentLineRenderer.gameObject.transform;
+
+    }
+
+    
 }
