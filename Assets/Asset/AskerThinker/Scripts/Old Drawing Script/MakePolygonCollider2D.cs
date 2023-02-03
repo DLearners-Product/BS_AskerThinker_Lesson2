@@ -79,8 +79,9 @@ public static class MakePolygonCollider2D
 
         //creating polygon collider 2d and adding it to a gameobject
         var pc2d = go.AddComponent<PolygonCollider2D>();
-        Debug.Log(Points);
         pc2d.points = Points;
+
+
 
         mesh.RecalculateBounds();
         mesh.RecalculateNormals();

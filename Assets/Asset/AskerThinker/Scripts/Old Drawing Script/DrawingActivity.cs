@@ -7,7 +7,7 @@ public class DrawingActivity : MonoBehaviour
     public Camera camera;
     public GameObject brush;
 
-    LineRenderer currentLineRenderer;
+    public LineRenderer currentLineRenderer;
     Vector2 lastPos;
     Vector3 fPos;
     Vector3 lPos;
@@ -27,10 +27,15 @@ public class DrawingActivity : MonoBehaviour
     private int colorCount;
     private Texture2D currentTool;
 
+    private List<LineRenderer> lines;
+
 
     private void Start()
     {
         currentToolIndex = 0;
+
+        lines = new List<LineRenderer>();
+
     }
 
 
@@ -56,7 +61,12 @@ public class DrawingActivity : MonoBehaviour
         }
         else if (Input.GetKeyUp(KeyCode.Mouse0))
         {
-            GenerateMesh();
+            currentLineRenderer.loop = true;
+            //GenerateMesh();
+
+            lines.Add(currentLineRenderer);
+
+
         }
     }
 
@@ -91,7 +101,7 @@ public class DrawingActivity : MonoBehaviour
         else if (i == 1)
         {
             //color bucket
-
+            GenerateMesh();
 
         }
         else if (i == 2)
@@ -119,8 +129,6 @@ public class DrawingActivity : MonoBehaviour
 
     public void GenerateMesh()
     {
-        Debug.Log(currentLineRenderer.positionCount);
-
         arrLineRendererPositions = new Vector2[currentLineRenderer.positionCount];
 
         //creating gameobject with components polygon collider, mesh filter, mesh renderer and making it child of line renderer
@@ -129,5 +137,32 @@ public class DrawingActivity : MonoBehaviour
 
     }
 
-    
+    public void CreateShapes()
+    {
+        foreach (LineRenderer closedLine in lines)
+        {
+            PolygonCollider2D pc2d = new PolygonCollider2D();
+
+            Vector2[] v2 = new Vector2[closedLine.positionCount];
+
+            for (int i = 0; i < closedLine.positionCount; i++)
+            {
+                /*    Debug.Log("pc2d point : " + pc2d.points[i]);
+                    Debug.Log("close line get position : " + closedLine.GetPosition(i));
+
+                    pc2d.points[i] = closedLine.GetPosition(i);*/
+
+                v2[i].x = closedLine.GetPosition(i).x;
+                v2[i].y = closedLine.GetPosition(i).y;
+            }
+
+            pc2d.SetPath(v2.Length, v2); ;
+
+            GameObject go = new GameObject("PolygonCollider2D");
+            pc2d = go.AddComponent<PolygonCollider2D>();
+            go.transform.parent = closedLine.gameObject.transform;
+        }
+    }
+
+
 }
