@@ -26,9 +26,9 @@ public class DrawingManager : MonoBehaviour
     public enum DrawMode
     {
         Pencil,
-        Marker,
+        //Marker,
         PaintBucket,
-        Sticker
+        //Sticker
     }
 
     //	*** Default settings ***
@@ -39,14 +39,14 @@ public class DrawingManager : MonoBehaviour
     private byte[] lockMaskPixels; // locking mask pixels
 
     // Stickers
-    public Texture2D[] stickers;
+/*    public Texture2D[] stickers;
     private int selectedSticker = 0; // currently selected sticker index
     private byte[] stickerBytes;
     private int stickerWidth;
     private int stickerHeight;
     private int stickerWidthHalf;
     private int texWidthMinusStickerWidth;
-    private int texHeightMinusStickerHeight;
+    private int texHeightMinusStickerHeight;*/
 
     // UNDO
     private List<byte[]> undoPixels; // undo buffer(s)
@@ -391,7 +391,7 @@ public class DrawingManager : MonoBehaviour
 
         OnChangeBrushSizeButtonClicked();
 
-        OnStickerButtonClicked(PanelColors[(int)DrawMode.Sticker].GetChild(0).GetComponent<ButtonScript>());
+        //OnStickerButtonClicked(PanelColors[(int)DrawMode.Sticker].GetChild(0).GetComponent<ButtonScript>());
 
         LoadSetting();
 
@@ -400,7 +400,7 @@ public class DrawingManager : MonoBehaviour
 
     private void SetPanelsUIScale(int current)
     {
-        float w = themes.spList[3].rectTransform.rect.width;
+        float w = themes.spList[0].rectTransform.rect.width;
 
         foreach (RectTransform panel in PanelColors)
         {
@@ -475,9 +475,9 @@ public class DrawingManager : MonoBehaviour
             // lets paint where we hit
             switch (drawMode)
             {
-                case DrawMode.Sticker: // Sticker
+/*                case DrawMode.Sticker: // Sticker
                     DrawSticker((int)pixelUV.x, (int)pixelUV.y);
-                    break;
+                    break;*/
 
                 default: // unknown mode
                     break;
@@ -521,9 +521,9 @@ public class DrawingManager : MonoBehaviour
                     DrawCircle((int)pixelUV.x, (int)pixelUV.y);
                     break;
 
-                case DrawMode.Marker: // drawing
+/*                case DrawMode.Marker: // drawing
                     DrawAdditiveCircle((int)pixelUV.x, (int)pixelUV.y);
-                    break;
+                    break;*/
 
                 //case DrawMode.Sticker: // Sticker
                 //    DrawSticker((int)pixelUV.x, (int)pixelUV.y);
@@ -564,9 +564,9 @@ public class DrawingManager : MonoBehaviour
                     DrawLine(pixelUVOld, pixelUV);
                     break;
 
-                case DrawMode.Marker: // drawing
+/*                case DrawMode.Marker: // drawing
                     DrawAdditiveLine(pixelUVOld, pixelUV);
-                    break;
+                    break;*/
 
                 //case DrawMode.Sticker:
                 //    DrawLineWithSticker(pixelUVOld, pixelUV);
@@ -817,7 +817,7 @@ public class DrawingManager : MonoBehaviour
         switch (drawMode)
         {
             case DrawMode.Pencil:
-            case DrawMode.Marker:
+//            case DrawMode.Marker:
             case DrawMode.PaintBucket:
 
                 int selectedNumber = sender.transform.GetSiblingIndex();
@@ -843,8 +843,8 @@ public class DrawingManager : MonoBehaviour
 
                     ////////////////////////////////////////
 
-                    min = PanelColors[(int)DrawMode.Marker].GetChild(i).GetComponent<RectTransform>().anchorMin;
-                    max = PanelColors[(int)DrawMode.Marker].GetChild(i).GetComponent<RectTransform>().anchorMax;
+                    //min = PanelColors[(int)DrawMode.Marker].GetChild(i).GetComponent<RectTransform>().anchorMin;
+                    //max = PanelColors[(int)DrawMode.Marker].GetChild(i).GetComponent<RectTransform>().anchorMax;
 
                     if (i == selectedNumber)
                     {
@@ -857,8 +857,8 @@ public class DrawingManager : MonoBehaviour
                         max.x = 0.88f;
                     }
 
-                    PanelColors[(int)DrawMode.Marker].GetChild(i).GetComponent<RectTransform>().anchorMin = min;
-                    PanelColors[(int)DrawMode.Marker].GetChild(i).GetComponent<RectTransform>().anchorMax = max;
+                    //PanelColors[(int)DrawMode.Marker].GetChild(i).GetComponent<RectTransform>().anchorMin = min;
+                    //PanelColors[(int)DrawMode.Marker].GetChild(i).GetComponent<RectTransform>().anchorMax = max;
                 }
 
                 for (int i = 0; i < PanelColors[(int)DrawMode.PaintBucket].childCount; i++)
@@ -871,7 +871,7 @@ public class DrawingManager : MonoBehaviour
         }
     }
 
-    public void OnStickerButtonClicked(ButtonScript sender)
+/*    public void OnStickerButtonClicked(ButtonScript sender)
     {
         selectedSticker = sender.transform.GetSiblingIndex();
 
@@ -905,7 +905,7 @@ public class DrawingManager : MonoBehaviour
         stickerWidthHalf = (int)(stickerWidth * 0.5f);
         texWidthMinusStickerWidth = texWidth - stickerWidth;
         texHeightMinusStickerHeight = texHeight - stickerHeight;
-    }
+    }*/
 
     public void OnChangeBrushSizeButtonClicked()
     {
@@ -1088,7 +1088,7 @@ public class DrawingManager : MonoBehaviour
         }
     }
 
-    private void DrawSticker(int px, int py)
+/*    private void DrawSticker(int px, int py)
     {
         // get position where we paint
         int startX = (int)(px - stickerWidthHalf);
@@ -1137,7 +1137,7 @@ public class DrawingManager : MonoBehaviour
 
             pixel = (texWidth * (startY == 0 ? 1 : startY + y) + startX + 1) * 4;
         } // for y
-    }
+    }*/
 
     private void FloodFillMaskOnlyWithThreshold(int x, int y)
     {
@@ -1418,7 +1418,7 @@ public class DrawingManager : MonoBehaviour
         }
     }
 
-    private void DrawLineWithSticker(Vector2 start, Vector2 end)
+/*    private void DrawLineWithSticker(Vector2 start, Vector2 end)
     {
         int x0 = (int)start.x;
         int y0 = (int)start.y;
@@ -1456,7 +1456,7 @@ public class DrawingManager : MonoBehaviour
                 y0 = y0 + sy;
             }
         }
-    }
+    }*/
 
     #endregion
 
