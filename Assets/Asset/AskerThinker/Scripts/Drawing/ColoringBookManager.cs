@@ -4,16 +4,12 @@ using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Collections;
 
-public class DrawingManager : MonoBehaviour
+#if UNITY_WEBGL
+using System.IO;
+#endif
+
+public class ColoringBookManager : MonoBehaviour
 {
-
-    [SerializeField] private Texture2D[] cursors;
-
-
-
-
-    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
     #region variables
 
     public Material maskTexMaterial;
@@ -26,9 +22,7 @@ public class DrawingManager : MonoBehaviour
     public enum DrawMode
     {
         Pencil,
-        //Marker,
         PaintBucket,
-        //Sticker
     }
 
     //	*** Default settings ***
@@ -39,14 +33,14 @@ public class DrawingManager : MonoBehaviour
     private byte[] lockMaskPixels; // locking mask pixels
 
     // Stickers
-/*    public Texture2D[] stickers;
+    public Texture2D[] stickers;
     private int selectedSticker = 0; // currently selected sticker index
     private byte[] stickerBytes;
     private int stickerWidth;
     private int stickerHeight;
     private int stickerWidthHalf;
     private int texWidthMinusStickerWidth;
-    private int texHeightMinusStickerHeight;*/
+    private int texHeightMinusStickerHeight;
 
     // UNDO
     private List<byte[]> undoPixels; // undo buffer(s)
@@ -77,8 +71,8 @@ public class DrawingManager : MonoBehaviour
 
     private Texture2D tex; // texture that we paint into (it gets updated from pixels[] array when painted)
 
-    public int texWidth = 1080;
-    public int texHeight = 1920;
+    private int texWidth = 1280;
+    private int texHeight = 720;
     private RaycastHit hit;
     private bool wentOutside = false;
 
@@ -90,10 +84,10 @@ public class DrawingManager : MonoBehaviour
     ////////////////////////////////////////////////////
 
     [Space]
-    public List<RectTransform> PanelColors; // 0.PencilPanel, 1.MarkerPanel, 2.PaintBucketPanel, 3.StickerPanel 
+    public List<RectTransform> PanelColors; // 0.PencilPanel, 1.PaintBucketPanel
     private Vector3 panelStartPos = Vector3.zero, panelEndPos = Vector3.zero;
 
-    public List<PaintingButton> drawModeButton; // 0.Pencil, 1.Marker, 2.PaintBucket, 3.Sticker
+    public List<PaintingButton> drawModeButton; // 0.Pencil, 1.PaintBucket
     [System.Serializable]
     public class PaintingButton
     {
@@ -154,39 +148,12 @@ public class DrawingManager : MonoBehaviour
 
     #endregion
 
-    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
-
-    public void OnClickToolsButton(int buttonId)
-    {
-        if (buttonId == 0)
-        {
-            //pencil
-        }
-        else if (buttonId == 1)
-        {
-            //color bucket
-        }
-        else if (buttonId == 2)
-        {
-            //eraser
-        }
-    }
-
-    void OnDestroy()
-    {
-        //resetting the cursor from brush to normal
-        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
-    }
-
-
-    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
     #region Init And Control Functions
 
     private void Awake()
     {
-        //Camera.main.aspect = 9 / 16f;
+        Camera.main.aspect = 16 / 9f;
 
         GetComponent<Renderer>().sortingOrder = -99;
 
@@ -238,8 +205,8 @@ public class DrawingManager : MonoBehaviour
         }
         else
         {
-            texWidth = 1080;
-            texHeight = 1920;
+            texWidth = 1280;
+            texHeight = 720;
 
             useLockArea = false;
         }
@@ -254,7 +221,7 @@ public class DrawingManager : MonoBehaviour
         // init pixels array
         pixels = new byte[texWidth * texHeight * 4];
 
-        //OnClearButtonClicked();
+        OnClearButtonClicked();
 
         // set texture modes
         tex.filterMode = FilterMode.Point;
@@ -272,7 +239,7 @@ public class DrawingManager : MonoBehaviour
         RedoIndex = 0;
 
         byte[] loadPixels = new byte[texWidth * texHeight * 4];
-        //loadPixels = LoadImage(ID);
+        loadPixels = LoadImage(ID);
 
         if (loadPixels != null)
         {
@@ -337,36 +304,36 @@ public class DrawingManager : MonoBehaviour
         }
     }
 
-    /*    private byte[] LoadImage(string key)
+    private byte[] LoadImage(string key)
+    {
+#if UNITY_WEBGL
+        string file = Application.persistentDataPath + "/Portrait" + key + ".sav";
+        if (File.Exists(file))
         {
-    #if UNITY_WEBGL
-            string file = Application.persistentDataPath + "/Portrait" + key + ".sav";
-            if (File.Exists(file))
-            {
-                return System.Convert.FromBase64String(File.ReadAllText(file));
-            }
-            else
-            {
-                return null;
-            }
-    #else
-            if (PlayerPrefs.HasKey(key))
-            {
-                return System.Convert.FromBase64String(PlayerPrefs.GetString(key));
-            }
-            else
-            {
-                return null;
-            }
-    #endif
-        }*/
+            return System.Convert.FromBase64String(File.ReadAllText(file));
+        }
+        else
+        {
+            return null;
+        }
+#else
+        if (PlayerPrefs.HasKey(key))
+        {
+            return System.Convert.FromBase64String(PlayerPrefs.GetString(key));
+        }
+        else
+        {
+            return null;
+        }
+#endif
+    }
 
     private void SaveImage(string key)
     {
 #if UNITY_WEBGL
         string file = Application.persistentDataPath + "/Portrait" + key + ".sav";
         string fileData = System.Convert.ToBase64String(pixels);
-        //File.WriteAllText(file, fileData);
+        File.WriteAllText(file, fileData);
 #else
         PlayerPrefs.SetString(key, System.Convert.ToBase64String(pixels));
         PlayerPrefs.Save();
@@ -375,7 +342,6 @@ public class DrawingManager : MonoBehaviour
 
     private void Start()
     {
-
 #if UNITY_ANDROID
         if (JavadRastadAndroidRuntimePermissions.CheckDeniedStoragePermissions())
         {
@@ -387,20 +353,14 @@ public class DrawingManager : MonoBehaviour
 
         OnDrawModeButtonClicked((int)DrawMode.Pencil);
 
-        OnBrushButtonClicked(PanelColors[(int)drawMode].GetChild(0).GetComponent<ButtonScript>());
-
         OnChangeBrushSizeButtonClicked();
 
-        //OnStickerButtonClicked(PanelColors[(int)DrawMode.Sticker].GetChild(0).GetComponent<ButtonScript>());
-
         LoadSetting();
-
-        Cursor.SetCursor(cursors[0], new Vector2(cursors[0].width / 12, cursors[0].height), CursorMode.ForceSoftware);
     }
 
     private void SetPanelsUIScale(int current)
     {
-        float w = themes.spList[0].rectTransform.rect.width;
+        float w = themes.spList[1].rectTransform.rect.width;
 
         foreach (RectTransform panel in PanelColors)
         {
@@ -433,7 +393,7 @@ public class DrawingManager : MonoBehaviour
 
     private void MousePaint()
     {
-        if (Input.GetMouseButtonDown(0) || Input.GetMouseButton(0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKey(KeyCode.Mouse0))
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -475,10 +435,6 @@ public class DrawingManager : MonoBehaviour
             // lets paint where we hit
             switch (drawMode)
             {
-/*                case DrawMode.Sticker: // Sticker
-                    DrawSticker((int)pixelUV.x, (int)pixelUV.y);
-                    break;*/
-
                 default: // unknown mode
                     break;
             }
@@ -521,14 +477,6 @@ public class DrawingManager : MonoBehaviour
                     DrawCircle((int)pixelUV.x, (int)pixelUV.y);
                     break;
 
-/*                case DrawMode.Marker: // drawing
-                    DrawAdditiveCircle((int)pixelUV.x, (int)pixelUV.y);
-                    break;*/
-
-                //case DrawMode.Sticker: // Sticker
-                //    DrawSticker((int)pixelUV.x, (int)pixelUV.y);
-                //    break;
-
                 case DrawMode.PaintBucket: // floodfill
                     if (maskTex)
                     {
@@ -563,14 +511,6 @@ public class DrawingManager : MonoBehaviour
                 case DrawMode.Pencil: // drawing
                     DrawLine(pixelUVOld, pixelUV);
                     break;
-
-/*                case DrawMode.Marker: // drawing
-                    DrawAdditiveLine(pixelUVOld, pixelUV);
-                    break;*/
-
-                //case DrawMode.Sticker:
-                //    DrawLineWithSticker(pixelUVOld, pixelUV);
-                //    break;
 
                 default: // other modes
                     break;
@@ -782,7 +722,6 @@ public class DrawingManager : MonoBehaviour
 
     #endregion
 
-    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
     #region OnButtonsClicked
 
@@ -802,9 +741,13 @@ public class DrawingManager : MonoBehaviour
 
         SetPanelsUIScale(currentDrawMode);
 
-        PanelColors[currentDrawMode].GetComponent<ButtonScript>().StartMyMoveAction(PanelColors[currentDrawMode].localPosition, panelEndPos, 0.5f);
+        //PanelColors[currentDrawMode].GetComponent<ButtonScript>().StartMyMoveAction(PanelColors[currentDrawMode].localPosition, panelEndPos, 0.5f);
 
-        PanelColors[drawModeIndex].GetComponent<ButtonScript>().StartMyMoveAction(PanelColors[drawModeIndex].localPosition, panelStartPos, 0.5f);
+        //PanelColors[drawModeIndex].GetComponent<ButtonScript>().StartMyMoveAction(PanelColors[drawModeIndex].localPosition, panelStartPos, 0.5f);
+
+        //enable/disable color panels
+        PanelColors[currentDrawMode].gameObject.SetActive(false);
+        PanelColors[drawModeIndex].gameObject.SetActive(true);
 
         drawMode = (DrawMode)drawModeIndex;
     }
@@ -817,7 +760,6 @@ public class DrawingManager : MonoBehaviour
         switch (drawMode)
         {
             case DrawMode.Pencil:
-//            case DrawMode.Marker:
             case DrawMode.PaintBucket:
 
                 int selectedNumber = sender.transform.GetSiblingIndex();
@@ -843,9 +785,6 @@ public class DrawingManager : MonoBehaviour
 
                     ////////////////////////////////////////
 
-                    //min = PanelColors[(int)DrawMode.Marker].GetChild(i).GetComponent<RectTransform>().anchorMin;
-                    //max = PanelColors[(int)DrawMode.Marker].GetChild(i).GetComponent<RectTransform>().anchorMax;
-
                     if (i == selectedNumber)
                     {
                         min.x = 0f;
@@ -857,8 +796,6 @@ public class DrawingManager : MonoBehaviour
                         max.x = 0.88f;
                     }
 
-                    //PanelColors[(int)DrawMode.Marker].GetChild(i).GetComponent<RectTransform>().anchorMin = min;
-                    //PanelColors[(int)DrawMode.Marker].GetChild(i).GetComponent<RectTransform>().anchorMax = max;
                 }
 
                 for (int i = 0; i < PanelColors[(int)DrawMode.PaintBucket].childCount; i++)
@@ -870,42 +807,6 @@ public class DrawingManager : MonoBehaviour
                 break;
         }
     }
-
-/*    public void OnStickerButtonClicked(ButtonScript sender)
-    {
-        selectedSticker = sender.transform.GetSiblingIndex();
-
-        for (int i = 0; i < PanelColors[(int)DrawMode.Sticker].childCount; i++)
-        {
-            PanelColors[(int)DrawMode.Sticker].GetChild(i).GetChild(0).gameObject.SetActive(false);
-        }
-
-        PanelColors[(int)DrawMode.Sticker].GetChild(selectedSticker).GetChild(0).gameObject.SetActive(true);
-
-        // tell mobile paint to read sticker pixel data
-        stickerWidth = stickers[selectedSticker].width;
-        stickerHeight = stickers[selectedSticker].height;
-        stickerBytes = new byte[stickerWidth * stickerHeight * 4];
-
-        int pixel = 0;
-        for (int y = 0; y < stickerHeight; y++)
-        {
-            for (int x = 0; x < stickerWidth; x++)
-            {
-                Color brushPixel = stickers[selectedSticker].GetPixel(x, y);
-                stickerBytes[pixel] = (byte)(brushPixel.r * 255);
-                stickerBytes[pixel + 1] = (byte)(brushPixel.g * 255);
-                stickerBytes[pixel + 2] = (byte)(brushPixel.b * 255);
-                stickerBytes[pixel + 3] = (byte)(brushPixel.a * 255);
-                pixel += 4;
-            }
-        }
-
-        // precalculate values
-        stickerWidthHalf = (int)(stickerWidth * 0.5f);
-        texWidthMinusStickerWidth = texWidth - stickerWidth;
-        texHeightMinusStickerHeight = texHeight - stickerHeight;
-    }*/
 
     public void OnChangeBrushSizeButtonClicked()
     {
@@ -984,7 +885,7 @@ public class DrawingManager : MonoBehaviour
         if (JavadRastadAndroidRuntimePermissions.RequestStoragePermissions())
         {
 #endif
-        //MusicController.USE.PlaySound(MusicController.USE.cameraSound);
+        MusicController.USE.PlaySound(MusicController.USE.cameraSound);
 
         waterMark.SetActive(true);
         //StartCoroutine(ScreenshotManager.SaveForPaint("MyPicture", "ColoringBook"));
@@ -1004,7 +905,7 @@ public class DrawingManager : MonoBehaviour
 
     public void OnMusicControllerButtonClicked()
     {
-        //MusicController.USE.ChangeMusicSetting();
+        MusicController.USE.ChangeMusicSetting();
 
         musicButtonController.image.sprite = musicButtonController.sprites[(int)AudioListener.volume];
     }
@@ -1023,7 +924,6 @@ public class DrawingManager : MonoBehaviour
 
     #endregion
 
-    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
     #region Painting Functions
 
@@ -1056,88 +956,6 @@ public class DrawingManager : MonoBehaviour
             }
         }
     }
-
-    private void DrawAdditiveCircle(int x, int y)
-    {
-        int pixel = 0;
-
-        // draw fast circle: 
-        int r2 = brushSize * brushSize;
-        int area = r2 << 2;
-        int rr = brushSize << 1;
-        for (int i = 0; i < area; i++)
-        {
-            int tx = (i % rr) - brushSize;
-            int ty = (i / rr) - brushSize;
-            if (tx * tx + ty * ty < r2)
-            {
-                if (x + tx < 0 || y + ty < 0 || x + tx >= texWidth || y + ty >= texHeight) continue;
-
-                pixel = (texWidth * (y + ty) + x + tx) * 4;
-
-                // additive over white also
-                if (!useLockArea || (useLockArea && lockMaskPixels[pixel] == 1))
-                {
-                    pixels[pixel] = (byte)Mathf.Lerp(pixels[pixel], paintColor.r, paintColor.a / 255f * 0.1f);
-                    pixels[pixel + 1] = (byte)Mathf.Lerp(pixels[pixel + 1], paintColor.g, paintColor.a / 255f * 0.1f);
-                    pixels[pixel + 2] = (byte)Mathf.Lerp(pixels[pixel + 2], paintColor.b, paintColor.a / 255f * 0.1f);
-                    pixels[pixel + 3] = (byte)Mathf.Lerp(pixels[pixel + 3], paintColor.a, paintColor.a / 255 * 0.1f);
-                }
-
-            }
-        }
-    }
-
-/*    private void DrawSticker(int px, int py)
-    {
-        // get position where we paint
-        int startX = (int)(px - stickerWidthHalf);
-        int startY = (int)(py - stickerWidthHalf);
-
-        if (startX < 0)
-        {
-            startX = 0;
-        }
-        else
-        {
-            if (startX + stickerWidth >= texWidth) startX = texWidthMinusStickerWidth;
-        }
-
-        if (startY < 1)
-        {
-            startY = 1;
-        }
-        else
-        {
-            if (startY + stickerHeight >= texHeight) startY = texHeightMinusStickerHeight;
-        }
-
-
-        int pixel = (texWidth * startY + startX) * 4;
-        int brushPixel = 0;
-
-        for (int y = 0; y < stickerHeight; y++)
-        {
-            for (int x = 0; x < stickerWidth; x++)
-            {
-                brushPixel = (stickerWidth * (y) + x) * 4;
-
-                // brush alpha is over 0 in this pixel
-                if (stickerBytes[brushPixel + 3] > 0)
-                {
-                    pixels[pixel] = stickerBytes[brushPixel];
-                    pixels[pixel + 1] = stickerBytes[brushPixel + 1];
-                    pixels[pixel + 2] = stickerBytes[brushPixel + 2];
-                    pixels[pixel + 3] = stickerBytes[brushPixel + 3];
-                }
-
-                pixel += 4;
-
-            } // for x
-
-            pixel = (texWidth * (startY == 0 ? 1 : startY + y) + startX + 1) * 4;
-        } // for y
-    }*/
 
     private void FloodFillMaskOnlyWithThreshold(int x, int y)
     {
@@ -1379,89 +1197,21 @@ public class DrawingManager : MonoBehaviour
         }
     }
 
-    private void DrawAdditiveLine(Vector2 start, Vector2 end)
-    {
-        int x0 = (int)start.x;
-        int y0 = (int)start.y;
-        int x1 = (int)end.x;
-        int y1 = (int)end.y;
-        int dx = Mathf.Abs(x1 - x0);
-        int dy = Mathf.Abs(y1 - y0);
-        int sx, sy;
-        if (x0 < x1) { sx = 1; } else { sx = -1; }
-        if (y0 < y1) { sy = 1; } else { sy = -1; }
-        int err = dx - dy;
-        bool loop = true;
-        int minDistance = (int)(brushSize >> 1);
-        int pixelCount = 0;
-        int e2;
-        while (loop)
-        {
-            pixelCount++;
-            if (pixelCount > minDistance)
-            {
-                pixelCount = 0;
-                DrawAdditiveCircle(x0, y0);
-            }
-            if ((x0 == x1) && (y0 == y1)) loop = false;
-            e2 = 2 * err;
-            if (e2 > -dy)
-            {
-                err = err - dy;
-                x0 = x0 + sx;
-            }
-            if (e2 < dx)
-            {
-                err = err + dx;
-                y0 = y0 + sy;
-            }
-        }
-    }
-
-/*    private void DrawLineWithSticker(Vector2 start, Vector2 end)
-    {
-        int x0 = (int)start.x;
-        int y0 = (int)start.y;
-        int x1 = (int)end.x;
-        int y1 = (int)end.y;
-        int dx = Mathf.Abs(x1 - x0);
-        int dy = Mathf.Abs(y1 - y0);
-        int sx, sy;
-        if (x0 < x1) { sx = 1; } else { sx = -1; }
-        if (y0 < y1) { sy = 1; } else { sy = -1; }
-        int err = dx - dy;
-        bool loop = true;
-        //			int minDistance=brushSize-1;
-        int minDistance = (int)(brushSize >> 1); // divide by 2, you might want to set mindistance to smaller value, to avoid gaps between brushes when moving fast
-        int pixelCount = 0;
-        int e2;
-        while (loop)
-        {
-            pixelCount++;
-            if (pixelCount > minDistance)
-            {
-                pixelCount = 0;
-                DrawSticker(x0, y0);
-            }
-            if ((x0 == x1) && (y0 == y1)) loop = false;
-            e2 = 2 * err;
-            if (e2 > -dy)
-            {
-                err = err - dy;
-                x0 = x0 + sx;
-            }
-            if (e2 < dx)
-            {
-                err = err + dx;
-                y0 = y0 + sy;
-            }
-        }
-    }*/
-
     #endregion
 
-    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+    #region Public Method
+
+    public void GotoNextLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void GotoPreviousLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+    }
 
 
-
+    #endregion
 }
