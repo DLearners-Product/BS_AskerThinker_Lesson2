@@ -2,7 +2,8 @@
 
 public class MusicController : MonoBehaviour
 {
-    public AudioClip clickSound, cameraSound;
+    public AudioClip clickSound;
+    public AudioClip cameraSound;
 
     public static MusicController USE;
 

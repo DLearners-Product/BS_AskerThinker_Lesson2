@@ -12,6 +12,13 @@ public class ColoringBookManager : MonoBehaviour
 {
     #region variables
 
+    [SerializeField] private AudioSource musicSource;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip clickClip;
+    [SerializeField] private AudioClip cameraClip;
+    private bool isMusicPlaying = true;
+
+
     public Material maskTexMaterial;
     private Texture2D maskTex;
     public List<Sprite> maskTexList;
@@ -22,7 +29,7 @@ public class ColoringBookManager : MonoBehaviour
     public enum DrawMode
     {
         Pencil,
-        PaintBucket,
+        PaintBucket
     }
 
     //	*** Default settings ***
@@ -378,7 +385,7 @@ public class ColoringBookManager : MonoBehaviour
     private void LoadSetting()
     {
         // Music
-        musicButtonController.image.sprite = musicButtonController.sprites[(int)AudioListener.volume];
+        musicButtonController.image.sprite = musicButtonController.sprites[0];
 
         // Theme
         ChangeThemeIndex = PlayerPrefs.GetInt("Theme", 0);
@@ -741,13 +748,9 @@ public class ColoringBookManager : MonoBehaviour
 
         SetPanelsUIScale(currentDrawMode);
 
-        //PanelColors[currentDrawMode].GetComponent<ButtonScript>().StartMyMoveAction(PanelColors[currentDrawMode].localPosition, panelEndPos, 0.5f);
+        PanelColors[currentDrawMode].GetComponent<ButtonScript>().StartMyMoveAction(PanelColors[currentDrawMode].localPosition, panelEndPos, 0.5f);
 
-        //PanelColors[drawModeIndex].GetComponent<ButtonScript>().StartMyMoveAction(PanelColors[drawModeIndex].localPosition, panelStartPos, 0.5f);
-
-        //enable/disable color panels
-        PanelColors[currentDrawMode].gameObject.SetActive(false);
-        PanelColors[drawModeIndex].gameObject.SetActive(true);
+        PanelColors[drawModeIndex].GetComponent<ButtonScript>().StartMyMoveAction(PanelColors[drawModeIndex].localPosition, panelStartPos, 0.5f);
 
         drawMode = (DrawMode)drawModeIndex;
     }
@@ -772,12 +775,12 @@ public class ColoringBookManager : MonoBehaviour
                     if (i == selectedNumber)
                     {
                         min.x = 0f;
-                        max.x = 0.66f;
+                        max.x = 0.1f;
                     }
                     else
                     {
-                        min.x = 0.22f;
-                        max.x = 0.88f;
+                        min.x = 0.1f;
+                        max.x = 1f;
                     }
 
                     PanelColors[(int)DrawMode.Pencil].GetChild(i).GetComponent<RectTransform>().anchorMin = min;
@@ -788,12 +791,12 @@ public class ColoringBookManager : MonoBehaviour
                     if (i == selectedNumber)
                     {
                         min.x = 0f;
-                        max.x = 0.66f;
+                        max.x = 0.1f;
                     }
                     else
                     {
-                        min.x = 0.22f;
-                        max.x = 0.88f;
+                        min.x = 0.1f;
+                        max.x = 1f;
                     }
 
                 }
@@ -886,6 +889,8 @@ public class ColoringBookManager : MonoBehaviour
         {
 #endif
         MusicController.USE.PlaySound(MusicController.USE.cameraSound);
+        audioSource.clip = cameraClip;
+        audioSource.Play();
 
         waterMark.SetActive(true);
         //StartCoroutine(ScreenshotManager.SaveForPaint("MyPicture", "ColoringBook"));
@@ -905,9 +910,18 @@ public class ColoringBookManager : MonoBehaviour
 
     public void OnMusicControllerButtonClicked()
     {
-        MusicController.USE.ChangeMusicSetting();
-
-        musicButtonController.image.sprite = musicButtonController.sprites[(int)AudioListener.volume];
+        if (isMusicPlaying)
+        {
+            musicSource.volume = 0;
+            isMusicPlaying = false;
+            musicButtonController.image.sprite = musicButtonController.sprites[1];
+        }
+        else
+        {
+            musicSource.volume = 0.1f;
+            isMusicPlaying = true;
+            musicButtonController.image.sprite = musicButtonController.sprites[0];
+        }
     }
 
     public void OnChangeThemeButtonClicked()

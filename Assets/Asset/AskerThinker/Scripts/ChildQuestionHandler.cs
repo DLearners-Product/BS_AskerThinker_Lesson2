@@ -48,12 +48,14 @@ public class ChildQuestionHandler : MonoBehaviour
     private int MAX_QUESTION_COUNT;
     private Dictionary<int, string> childQuestions;
     private int questionNo;
+    private int clipCount;
 
     void Start()
     {
+        clipCount = 0;
         childQuestions = new Dictionary<int, string>();
         questionNo = 1;
-        MIN_QUESTION_COUNT = 2;
+        MIN_QUESTION_COUNT = 4;
         MAX_QUESTION_COUNT = 4;
         bharatAnim.SetBool("Think", true);
 
@@ -87,10 +89,12 @@ public class ChildQuestionHandler : MonoBehaviour
 
     public void OnClickEnterQuestion()
     {
+        if (clipCount == clips.Length) clipCount = 0;   //resetting the clipCount back to '0' if clip end is reached
 
         //play sound and animation
-        audioSource.clip = clips[questionNo - 1];
-        audioSource.Play();
+        PlaySE(clips[clipCount]);
+        clipCount++;
+
         bharatAnim.SetTrigger("Jump");
 
         if (questionNo == MAX_QUESTION_COUNT)
@@ -318,5 +322,11 @@ public class ChildQuestionHandler : MonoBehaviour
         }
 
 
+    }
+
+    public void PlaySE(AudioClip clip)
+    {
+        audioSource.clip = clip;
+        audioSource.Play();
     }
 }
