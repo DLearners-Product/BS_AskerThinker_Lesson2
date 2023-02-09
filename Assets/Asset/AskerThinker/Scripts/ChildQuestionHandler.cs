@@ -13,6 +13,8 @@ public class ChildQuestionHandler : MonoBehaviour
     [SerializeField] private AudioClip buttonClick;
     [SerializeField] private AudioClip accepted;
     [SerializeField] private AudioClip denied;
+    [SerializeField] private AudioClip balloonPop;
+    [SerializeField] private AudioClip fall;
 
     //animator
     [SerializeField] private Animator bharatAnim;
@@ -37,6 +39,9 @@ public class ChildQuestionHandler : MonoBehaviour
     [SerializeField] private GameObject getChildQuestions;
     [SerializeField] private GameObject slotChildQuestions;
     [SerializeField] private GameObject popup;
+    [SerializeField] private GameObject helpWindow;
+    [SerializeField] private GameObject[] questionBalloons;
+    [SerializeField] private GameObject popTheBalloon;
 
     [SerializeField] GameObject[] q;
 
@@ -49,9 +54,11 @@ public class ChildQuestionHandler : MonoBehaviour
     private Dictionary<int, string> childQuestions;
     private int questionNo;
     private int clipCount;
+    private int balloonCount;
 
     void Start()
     {
+        balloonCount = 0;
         clipCount = 0;
         childQuestions = new Dictionary<int, string>();
         questionNo = 1;
@@ -60,6 +67,11 @@ public class ChildQuestionHandler : MonoBehaviour
         bharatAnim.SetBool("Think", true);
 
         nameInputField.onValueChanged.AddListener(delegate { OnNameEnteredCheck(); });
+        StartCheckingForChildInput();
+    }
+
+    private void StartCheckingForChildInput()
+    {
         questionInputField.onValueChanged.AddListener(delegate { OnNewQuestionEnteredCheck(); });
     }
 
@@ -321,12 +333,51 @@ public class ChildQuestionHandler : MonoBehaviour
             Debug.Log("Sending data to DB success : " + www.downloadHandler.text);
         }
 
-
     }
 
     public void PlaySE(AudioClip clip)
     {
         audioSource.clip = clip;
         audioSource.Play();
+    }
+
+    public void OnClickHelpButton()
+    {
+        helpWindow.SetActive(true);
+    }
+
+    public void OnClickBalloon()
+    {
+        //balloon pop
+        PlaySE(balloonPop);
+
+        //play balloon pop animation
+        questionBalloons[balloonCount].GetComponent<Animator>().SetTrigger("Pop" + (balloonCount + 1));
+
+        Invoke("QuestionFalling", 0.5f);
+    }
+
+    public void QuestionFalling()
+    {
+        //paper falling
+        questionBalloons[balloonCount].transform.GetChild(0).GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        popTheBalloon.SetActive(false);
+        PlaySE(fall);
+        Invoke("SpawnNextBalloon", 2.5f);
+    }
+
+    public void SpawnNextBalloon()
+    {
+        balloonCount++;
+
+        if (balloonCount == questionBalloons.Length)
+        {
+            //Invoke("ShowBlackScreen", 1f);
+            balloonCount = 0;
+        }
+
+        questionBalloons[balloonCount].SetActive(true);
+        StartCheckingForChildInput();
+        questionBalloons[balloonCount - 1].SetActive(false);
     }
 }

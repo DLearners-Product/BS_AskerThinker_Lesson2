@@ -22,8 +22,12 @@ public class Balloon : MonoBehaviour
     public void KeepFloating()
     {
         balloonAnim.SetTrigger("KeepFloating");
-        answerInputField.gameObject.SetActive(true);
-        PlaySE(whoosh);
+
+        if (answerInputField != null)
+            answerInputField.gameObject.SetActive(true);
+
+        if (whoosh != null)
+            PlaySE(whoosh);
     }
 
     public void PlaySE(AudioClip clip)
