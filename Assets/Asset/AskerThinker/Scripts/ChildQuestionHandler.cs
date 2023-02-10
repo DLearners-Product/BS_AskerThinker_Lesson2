@@ -4,9 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Collections;
+using System.Threading.Tasks;
 
 public class ChildQuestionHandler : MonoBehaviour
 {
+    //const
+    private string demoQ = "what made the balloon to float?";
+
     //audio
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip[] clips;
@@ -25,6 +29,7 @@ public class ChildQuestionHandler : MonoBehaviour
     [SerializeField] private TextMeshProUGUI childName;
     [SerializeField] private TextMeshProUGUI childQuestion;
     [SerializeField] private TextMeshProUGUI childNameQuestionWeb;
+    [SerializeField] private TextMeshProUGUI scrollText;
 
     //button
     [SerializeField] private Button submitButton;
@@ -40,10 +45,12 @@ public class ChildQuestionHandler : MonoBehaviour
     [SerializeField] private GameObject slotChildQuestions;
     [SerializeField] private GameObject popup;
     [SerializeField] private GameObject helpWindow;
+    [SerializeField] private Transform questionBalloonsParent;
     [SerializeField] private GameObject[] questionBalloons;
     [SerializeField] private GameObject popTheBalloon;
-
-    [SerializeField] GameObject[] q;
+    [SerializeField] private GameObject[] q;
+    [SerializeField] private GameObject detailedScrollArea;
+    [SerializeField] private GameObject[] helpQuestionBalloons;
 
     [Header("GAME DATA")]
     public List<string> STRL_childData;
@@ -55,11 +62,20 @@ public class ChildQuestionHandler : MonoBehaviour
     private int questionNo;
     private int clipCount;
     private int balloonCount;
+    private int helpBalloonCount;
+    private GameObject instantiatedBalloon;
+    private int childChoice;
+
+    private void Awake()
+    {
+        balloonCount = 0;
+        helpBalloonCount = 0;
+        clipCount = 0;
+        childChoice = 0;
+    }
 
     void Start()
     {
-        balloonCount = 0;
-        clipCount = 0;
         childQuestions = new Dictionary<int, string>();
         questionNo = 1;
         MIN_QUESTION_COUNT = 4;
@@ -68,6 +84,8 @@ public class ChildQuestionHandler : MonoBehaviour
 
         nameInputField.onValueChanged.AddListener(delegate { OnNameEnteredCheck(); });
         StartCheckingForChildInput();
+
+        NewBalloon();
     }
 
     private void StartCheckingForChildInput()
@@ -275,8 +293,7 @@ public class ChildQuestionHandler : MonoBehaviour
             getChildQuestions.SetActive(true);
             childName.text = PlayerPrefs.GetString("childName");
 
-            audioSource.clip = buttonClick;
-            audioSource.Play();
+            PlaySE(buttonClick);
         }
     }
 
@@ -343,6 +360,7 @@ public class ChildQuestionHandler : MonoBehaviour
 
     public void OnClickHelpButton()
     {
+        PlaySE(buttonClick);
         helpWindow.SetActive(true);
     }
 
@@ -351,16 +369,35 @@ public class ChildQuestionHandler : MonoBehaviour
         //balloon pop
         PlaySE(balloonPop);
 
-        //play balloon pop animation
-        questionBalloons[balloonCount].GetComponent<Animator>().SetTrigger("Pop" + (balloonCount + 1));
+        //balloon pop animation
+        if (helpWindow.activeInHierarchy)
+        {
+            //help window balloon pop animation
+            helpQuestionBalloons[helpBalloonCount].GetComponent<Animator>().SetTrigger("Pop");
+        }
+        else
+        {
+            //enter child question window balloon pop animation
+            instantiatedBalloon.GetComponent<Animator>().SetTrigger("Pop" + (balloonCount + 1));
+        }
 
         Invoke("QuestionFalling", 0.5f);
     }
 
     public void QuestionFalling()
     {
-        //paper falling
-        questionBalloons[balloonCount].transform.GetChild(0).GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        //
+        if (helpWindow.activeInHierarchy)
+        {
+            //help window paper falling
+            helpQuestionBalloons[helpBalloonCount].transform.GetChild(0).GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        }
+        else
+        {
+            //enter child question window paper falling
+            instantiatedBalloon.transform.GetChild(0).GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        }
+
         popTheBalloon.SetActive(false);
         PlaySE(fall);
         Invoke("SpawnNextBalloon", 2.5f);
@@ -368,16 +405,82 @@ public class ChildQuestionHandler : MonoBehaviour
 
     public void SpawnNextBalloon()
     {
+        //destroying current balloon
+        Destroy(instantiatedBalloon);
+
         balloonCount++;
 
         if (balloonCount == questionBalloons.Length)
         {
-            //Invoke("ShowBlackScreen", 1f);
             balloonCount = 0;
         }
 
-        questionBalloons[balloonCount].SetActive(true);
-        StartCheckingForChildInput();
-        questionBalloons[balloonCount - 1].SetActive(false);
+        //instantiating next balloon
+        NewBalloon();
+    }
+
+    public void NewBalloon()
+    {
+        instantiatedBalloon = Instantiate(questionBalloons[balloonCount], questionBalloonsParent);
+    }
+
+    public void OnClickProceedButton()
+    {
+        PlaySE(buttonClick);
+
+        if (childChoice == 1)
+        {
+            //goto child question entering area
+            helpWindow.SetActive(false);
+
+            //demo question
+            //what made the balloon to float?
+            StartCoroutine(PrintDemoQuestion());
+        }
+        else if (childChoice == 2)
+        {
+            //give one or two words, enabler had to pitch in
+
+        }
+        else if (childChoice == 3)
+        {
+            //enabler had to pitch in and allow child to type
+
+        }
+        else if (childChoice == 4)
+        {
+            //enabler had to pitch in and allow child to type
+
+        }
+        else if (childChoice == 5)
+        {
+            //enabler had to pitch in and allow child to type
+
+        }
+
+
+    }
+
+    IEnumerator PrintDemoQuestion()
+    {
+        helpWindow.SetActive(false);
+        yield return new WaitForSeconds(1f);
+
+        for (int i = 0; i < demoQ.Length; i++)
+        {
+            questionInputField.text += demoQ[i];
+            yield return new WaitForSeconds(0.15f);
+        }
+    }
+
+    public void OnHelpWindowBalloonPop(int balloonName)
+    {
+        childChoice = balloonName;
+        OnClickBalloon();
+    }
+
+    public void OnHelpWindowBoxFalling()
+    {
+
     }
 }
