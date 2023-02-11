@@ -427,9 +427,12 @@ public class ChildQuestionHandler : MonoBehaviour
     public void OnClickProceedButton()
     {
         PlaySE(buttonClick);
+        questionInputField.text = "";
 
-        if (childChoice == 1)
+        if (childChoice == 1)   //FIRST BALLOON
         {
+            //type a demo question
+
             //goto child question entering area
             helpWindow.SetActive(false);
 
@@ -437,27 +440,38 @@ public class ChildQuestionHandler : MonoBehaviour
             //what made the balloon to float?
             StartCoroutine(PrintDemoQuestion());
         }
-        else if (childChoice == 2)
+        else if (childChoice == 2)  //SECOND BALLOON
         {
-            //give one or two words, enabler had to pitch in
+            //give one or two words, enabler had to pitch in and form a question
+            //if this didn't help child, ask whether to start all over again?
 
+            //goto child question entering area
+            helpWindow.SetActive(false);
         }
-        else if (childChoice == 3)
-        {
-            //enabler had to pitch in and allow child to type
-
-        }
-        else if (childChoice == 4)
+        else if (childChoice == 3)  //THIRD BALLOON
         {
             //enabler had to pitch in and allow child to type
 
+            //goto child question entering area
+            helpWindow.SetActive(false);
+
+            //goto child question entering area
+            helpWindow.SetActive(false);
         }
-        else if (childChoice == 5)
+        else if (childChoice == 4)  //FOURTH BALLOON
         {
             //enabler had to pitch in and allow child to type
 
+            //goto child question entering area
+            helpWindow.SetActive(false);
         }
+        else if (childChoice == 5)  //FIFTH BALLOON
+        {
+            //enabler had to pitch in and allow child to type
 
+            //goto child question entering area
+            helpWindow.SetActive(false);
+        }
 
     }
 
