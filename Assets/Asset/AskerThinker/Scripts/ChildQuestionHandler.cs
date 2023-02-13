@@ -48,7 +48,9 @@ public class ChildQuestionHandler : MonoBehaviour
     [SerializeField] private Transform questionBalloonsParent;
     [SerializeField] private GameObject[] questionBalloons;
     [SerializeField] private GameObject popTheBalloon;
-    [SerializeField] private GameObject[] q;
+    [SerializeField] private List<string> q;
+    [SerializeField] private List<string> qTag;
+    [SerializeField] private Dictionary<int, string> childQuestions;
     [SerializeField] private GameObject detailedScrollArea;
     [SerializeField] private GameObject[] helpQuestionBalloons;
 
@@ -58,13 +60,13 @@ public class ChildQuestionHandler : MonoBehaviour
 
     private int MIN_QUESTION_COUNT;
     private int MAX_QUESTION_COUNT;
-    private Dictionary<int, string> childQuestions;
     private int questionNo;
     private int clipCount;
     private int balloonCount;
     private int helpBalloonCount;
     private GameObject instantiatedBalloon;
     private int childChoice;
+    private int qNo;
 
     private void Awake()
     {
@@ -72,19 +74,20 @@ public class ChildQuestionHandler : MonoBehaviour
         helpBalloonCount = 0;
         clipCount = 0;
         childChoice = 0;
+        qNo = 0;
     }
 
     void Start()
     {
         childQuestions = new Dictionary<int, string>();
         questionNo = 1;
-        MIN_QUESTION_COUNT = 4;
+        MIN_QUESTION_COUNT = 2;
         MAX_QUESTION_COUNT = 4;
         bharatAnim.SetBool("Think", true);
+        q = new List<string>();
 
         nameInputField.onValueChanged.AddListener(delegate { OnNameEnteredCheck(); });
         StartCheckingForChildInput();
-
         NewBalloon();
     }
 
@@ -119,7 +122,7 @@ public class ChildQuestionHandler : MonoBehaviour
 
     public void OnClickEnterQuestion()
     {
-        if (clipCount == clips.Length) clipCount = 0;   //resetting the clipCount back to '0' if clip end is reached
+        if (clipCount == clips.Length) clipCount = 0;   //resetting the audio clipCount back to '0' if audio clip list end is reached
 
         //play sound and animation
         PlaySE(clips[clipCount]);
@@ -127,15 +130,21 @@ public class ChildQuestionHandler : MonoBehaviour
 
         bharatAnim.SetTrigger("Jump");
 
-        if (questionNo == MAX_QUESTION_COUNT)
-        {
-            enterButton.interactable = false;
-        }
+        /*        if (questionNo == MAX_QUESTION_COUNT)
+                {
+                    enterButton.interactable = false;
+                }*/
 
         string question = enteredQuestion.text;
 
         //adding to dictionary
-        //childQuestions.Add(questionNo, question);
+        childQuestions.Add(questionNo, question);
+
+        //adding question to list
+        q.Add(question);
+        //setting tag
+        SetQuestionTag(question);
+
 
         //adding to player prefs
         string questionNumber = questionNo.ToString();
@@ -144,11 +153,11 @@ public class ChildQuestionHandler : MonoBehaviour
         //cleaing text after entering
         questionInputField.text = "";
 
-        //setting tag
-        SetQuestionTag(question, questionNo);
+
 
         //incrementing question number
         questionNo++;
+        qNo++;
     }
 
     public void OnClickNextButton()
@@ -163,77 +172,77 @@ public class ChildQuestionHandler : MonoBehaviour
         }
         else
         {
-            THI_TrackChildData();
+            /* THI_TrackChildData();
 
-            StartCoroutine(IN_SendDataToDB());
+             StartCoroutine(IN_SendDataToDB());
 
-            slotChildQuestions.SetActive(true);
+             slotChildQuestions.SetActive(true);
 
-            //play accepted sound
-            audioSource.clip = buttonClick;
-            audioSource.Play();
+             //play accepted sound
+             audioSource.clip = buttonClick;
+             audioSource.Play();*/
         }
     }
 
     public void AnalyzeQuestion()
     {
-        /*        List<string> qCategory = new List<string>();
-                qCategory.Add("why");
-                qCategory.Add("why not");
-                qCategory.Add("what");
-                qCategory.Add("what if");
-                qCategory.Add("who");
-                qCategory.Add("where");
-                qCategory.Add("when");
-                qCategory.Add("how");
+        List<string> qCategory = new List<string>();
+        qCategory.Add("why");
+        qCategory.Add("why not");
+        qCategory.Add("what");
+        qCategory.Add("what if");
+        qCategory.Add("who");
+        qCategory.Add("where");
+        qCategory.Add("when");
+        qCategory.Add("how");
 
-                for (int i = 1; i < questionNo; i++)
-                {
-                    string question = PlayerPrefs.GetString(i.ToString());
+        for (int i = 1; i < questionNo; i++)
+        {
+            string question = PlayerPrefs.GetString(i.ToString());
 
-                    if (question.Contains("why not") == true)
-                    {
-                        qCategory.Remove("why not");
-                    }
-                    else if (question.Contains("why") == true)
-                    {
-                        qCategory.Remove("why");
-                    }
-                    else if (question.Contains("what if") == true)
-                    {
-                        qCategory.Remove("what if");
-                    }
-                    else if (question.Contains("what") == true)
-                    {
-                        qCategory.Remove("what");
-                    }
-                    else if (question.Contains("who") == true)
-                    {
-                        qCategory.Remove("who");
-                    }
-                    else if (question.Contains("where") == true)
-                    {
-                        qCategory.Remove("where");
-                    }
-                    else if (question.Contains("when") == true)
-                    {
-                        qCategory.Remove("when");
-                    }
-                    else if (question.Contains("how") == true)
-                    {
-                        qCategory.Remove("how");
-                    }
-                }
+            if (question.Contains("why not") == true)
+            {
+                qCategory.Remove("why not");
+            }
+            else if (question.Contains("why") == true)
+            {
+                qCategory.Remove("why");
+            }
+            else if (question.Contains("what if") == true)
+            {
+                qCategory.Remove("what if");
+            }
+            else if (question.Contains("what") == true)
+            {
+                qCategory.Remove("what");
+            }
+            else if (question.Contains("who") == true)
+            {
+                qCategory.Remove("who");
+            }
+            else if (question.Contains("where") == true)
+            {
+                qCategory.Remove("where");
+            }
+            else if (question.Contains("when") == true)
+            {
+                qCategory.Remove("when");
+            }
+            else if (question.Contains("how") == true)
+            {
+                qCategory.Remove("how");
+            }
+        }
 
-                string questionCategories = "";
+        string questionCategories = "";
 
-                for (int i = 0; i < qCategory.Count; i++)
-                {
-                    if (i == qCategory.Count - 1) questionCategories += qCategory[i];
-                    else questionCategories += qCategory[i] + ", ";
-                }
+        for (int i = 0; i < qCategory.Count; i++)
+        {
+            if (i == qCategory.Count - 1) questionCategories += qCategory[i];
+            else questionCategories += qCategory[i] + ", ";
+        }
 
-                missedQCategory.text = questionCategories;*/
+        missedQCategory.text = questionCategories;
 
         popup.SetActive(true);
         childNameQuestionWeb.text = PlayerPrefs.GetString("childName");
@@ -244,39 +253,40 @@ public class ChildQuestionHandler : MonoBehaviour
         popup.SetActive(false);
     }
 
-    public void SetQuestionTag(string question, int qNo)
+    public void SetQuestionTag(string question)
     {
+
         if (question.Contains("why not") || question.Contains("Why not"))
         {
-            q[qNo - 1].tag = "why not";
+            qTag.Add("why not");
         }
         else if (question.Contains("why") || question.Contains("Why"))
         {
-            q[qNo - 1].tag = "why";
+            qTag.Add("why");
         }
         else if (question.Contains("what if") || question.Contains("What if"))
         {
-            q[qNo - 1].tag = "what if";
+            qTag.Add("what if");
         }
         else if (question.Contains("what") || question.Contains("What"))
         {
-            q[qNo - 1].tag = "what";
+            qTag.Add("what");
         }
         else if (question.Contains("who") || question.Contains("Who"))
         {
-            q[qNo - 1].tag = "who";
+            qTag.Add("who");
         }
         else if (question.Contains("where") || question.Contains("Where"))
         {
-            q[qNo - 1].tag = "where";
+            qTag.Add("where");
         }
         else if (question.Contains("when") || question.Contains("When"))
         {
-            q[qNo - 1].tag = "when";
+            qTag.Add("when");
         }
         else if (question.Contains("how") || question.Contains("How"))
         {
-            q[qNo - 1].tag = "how";
+            qTag.Add("how");
         }
     }
 
@@ -314,7 +324,7 @@ public class ChildQuestionHandler : MonoBehaviour
         childData.answers = new List<Answers>();
 
         int count = 0;
-        for (int i = 0; i < q.Length; i++)
+        for (int i = 0; i < q.Count; i++)
         {
             if (PlayerPrefs.HasKey((i + 1) + "")) count++;
         }
@@ -391,22 +401,27 @@ public class ChildQuestionHandler : MonoBehaviour
         {
             //help window paper falling
             helpQuestionBalloons[helpBalloonCount].transform.GetChild(0).GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+            Invoke("OnHelpWindowBoxFalling", 2f);
         }
         else
         {
             //enter child question window paper falling
             instantiatedBalloon.transform.GetChild(0).GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+            Invoke("SpawnNextBalloon", 2.5f);
         }
 
         popTheBalloon.SetActive(false);
         PlaySE(fall);
-        Invoke("SpawnNextBalloon", 2.5f);
+
     }
 
     public void SpawnNextBalloon()
     {
         //destroying current balloon
-        Destroy(instantiatedBalloon);
+        if (instantiatedBalloon != null) Destroy(instantiatedBalloon);
+
+        //destroying helpQuestionBalloon
+
 
         balloonCount++;
 
@@ -473,6 +488,7 @@ public class ChildQuestionHandler : MonoBehaviour
             helpWindow.SetActive(false);
         }
 
+        detailedScrollArea.SetActive(false);
     }
 
     IEnumerator PrintDemoQuestion()
@@ -490,11 +506,12 @@ public class ChildQuestionHandler : MonoBehaviour
     public void OnHelpWindowBalloonPop(int balloonName)
     {
         childChoice = balloonName;
+        helpBalloonCount = balloonName - 1;
         OnClickBalloon();
     }
 
     public void OnHelpWindowBoxFalling()
     {
-
+        detailedScrollArea.SetActive(true);
     }
 }
