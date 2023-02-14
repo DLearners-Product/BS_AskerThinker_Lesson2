@@ -39,6 +39,9 @@ public class ChildQuestionHandler : MonoBehaviour
     [SerializeField] private TMP_InputField nameInputField;
     [SerializeField] private TMP_InputField questionInputField;
 
+    //particles
+    [SerializeField] private ParticleSystem particleBalloons;
+
     //GO
     [SerializeField] private GameObject getChildName;
     [SerializeField] private GameObject getChildQuestions;
@@ -48,7 +51,7 @@ public class ChildQuestionHandler : MonoBehaviour
     [SerializeField] private Transform questionBalloonsParent;
     [SerializeField] private GameObject[] questionBalloons;
     [SerializeField] private GameObject popTheBalloon;
-    [SerializeField] private List<string> q;
+    [SerializeField] public List<string> q;
     [SerializeField] private List<string> qTag;
     [SerializeField] private Dictionary<int, string> childQuestions;
     [SerializeField] private GameObject detailedScrollArea;
@@ -67,6 +70,7 @@ public class ChildQuestionHandler : MonoBehaviour
     private GameObject instantiatedBalloon;
     private int childChoice;
     private int qNo;
+    private string childCaption;
 
     private void Awake()
     {
@@ -75,6 +79,7 @@ public class ChildQuestionHandler : MonoBehaviour
         clipCount = 0;
         childChoice = 0;
         qNo = 0;
+        childCaption = "";
     }
 
     void Start()
@@ -129,6 +134,7 @@ public class ChildQuestionHandler : MonoBehaviour
         clipCount++;
 
         bharatAnim.SetTrigger("Jump");
+        particleBalloons.Play();
 
         /*        if (questionNo == MAX_QUESTION_COUNT)
                 {
@@ -144,7 +150,8 @@ public class ChildQuestionHandler : MonoBehaviour
         q.Add(question);
         //setting tag
         SetQuestionTag(question);
-
+        //find child caption
+        FindChildCaption(question);
 
         //adding to player prefs
         string questionNumber = questionNo.ToString();
@@ -162,6 +169,8 @@ public class ChildQuestionHandler : MonoBehaviour
 
     public void OnClickNextButton()
     {
+        slotChildQuestions.SetActive(true);
+
         if (questionNo <= MIN_QUESTION_COUNT)
         {
             AnalyzeQuestion();
@@ -172,6 +181,8 @@ public class ChildQuestionHandler : MonoBehaviour
         }
         else
         {
+
+
             /* THI_TrackChildData();
 
              StartCoroutine(IN_SendDataToDB());
@@ -200,38 +211,43 @@ public class ChildQuestionHandler : MonoBehaviour
         {
             string question = PlayerPrefs.GetString(i.ToString());
 
-            if (question.Contains("why not") == true)
-            {
-                qCategory.Remove("why not");
-            }
-            else if (question.Contains("why") == true)
-            {
-                qCategory.Remove("why");
-            }
-            else if (question.Contains("what if") == true)
-            {
-                qCategory.Remove("what if");
-            }
-            else if (question.Contains("what") == true)
-            {
-                qCategory.Remove("what");
-            }
-            else if (question.Contains("who") == true)
-            {
-                qCategory.Remove("who");
-            }
-            else if (question.Contains("where") == true)
-            {
-                qCategory.Remove("where");
-            }
-            else if (question.Contains("when") == true)
-            {
-                qCategory.Remove("when");
-            }
-            else if (question.Contains("how") == true)
-            {
-                qCategory.Remove("how");
-            }
+            /*            if (question.Contains("why not") == true)
+                        {
+                            qCategory.Remove("why not");
+                        }
+                        else if (question.Contains("why") == true)
+                        {
+                            qCategory.Remove("why");
+                        }
+                        else if (question.Contains("what if") == true)
+                        {
+                            qCategory.Remove("what if");
+                        }
+                        else if (question.Contains("what") == true)
+                        {
+                            qCategory.Remove("what");
+                        }
+                        else if (question.Contains("who") == true)
+                        {
+                            qCategory.Remove("who");
+                        }
+                        else if (question.Contains("where") == true)
+                        {
+                            qCategory.Remove("where");
+                        }
+                        else if (question.Contains("when") == true)
+                        {
+                            qCategory.Remove("when");
+                        }
+                        else if (question.Contains("how") == true)
+                        {
+                            qCategory.Remove("how");
+                        }*/
+
+
+
+
+
         }
 
         string questionCategories = "";
@@ -246,6 +262,36 @@ public class ChildQuestionHandler : MonoBehaviour
 
         popup.SetActive(true);
         childNameQuestionWeb.text = PlayerPrefs.GetString("childName");
+    }
+
+    public void FindChildCaption(string question)
+    {
+        if (question.Contains("why not") == true)
+        {
+            //whacky thinker
+            childCaption = "Whacky thinker";
+        }
+        else if (question.Contains("what if") == true && (childCaption != "Whacky thinker"))
+        {
+            //dreamer
+            childCaption = "Dreamer";
+        }
+        else if (question.Contains("how") == true && (childCaption != "Whacky thinker" && childCaption != "Dreamer"))
+        {
+            //investigator
+            childCaption = "Investigator";
+        }
+        else if (question.Contains("why") == true && (childCaption != "Whacky thinker" && childCaption != "Dreamer" && childCaption != "Investigator"))
+        {
+            //prober
+            childCaption = "Prober";
+        }
+        else if ((question.Contains("what") == true || question.Contains("when") == true || question.Contains("where") == true || question.Contains("who") == true)
+            && (childCaption != "Whacky thinker" && childCaption != "Dreamer" && childCaption != "Investigator" && childCaption != "Prober"))
+        {
+            //fact finder
+            childCaption = "Fact finder";
+        }
     }
 
     public void OnClickBackButton()
@@ -288,6 +334,8 @@ public class ChildQuestionHandler : MonoBehaviour
         {
             qTag.Add("how");
         }
+
+
     }
 
     public void OnClickSubmitButton()

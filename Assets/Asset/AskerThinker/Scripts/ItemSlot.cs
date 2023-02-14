@@ -43,7 +43,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler
             else
             {
                 //taking Q1, Q2, Q3, Q4 back to its initial position
-                eventData.pointerDrag.GetComponent<RectTransform>().position = DragAndDrop.draggedItemInitialPos;
+                //eventData.pointerDrag.GetComponent<RectTransform>().position = DragAndDrop.draggedItemInitialPos;
 
                 //playing incorrect answer sound effect
                 audioSource.clip = wrongClip;
