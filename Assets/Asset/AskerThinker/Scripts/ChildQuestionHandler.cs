@@ -19,6 +19,7 @@ public class ChildQuestionHandler : MonoBehaviour
     [SerializeField] private AudioClip denied;
     [SerializeField] private AudioClip balloonPop;
     [SerializeField] private AudioClip fall;
+    [SerializeField] private AudioClip[] responseClips;
 
     //animator
     [SerializeField] private Animator bharatAnim;
@@ -56,6 +57,7 @@ public class ChildQuestionHandler : MonoBehaviour
     [SerializeField] private Dictionary<int, string> childQuestions;
     [SerializeField] private GameObject detailedScrollArea;
     [SerializeField] private GameObject[] helpQuestionBalloons;
+    [SerializeField] private GameObject[] helpQuestionBoxes;
 
     [Header("GAME DATA")]
     public List<string> STRL_childData;
