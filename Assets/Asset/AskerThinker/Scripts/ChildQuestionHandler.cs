@@ -12,7 +12,8 @@ public class ChildQuestionHandler : MonoBehaviour
     private string demoQ = "what made the balloon to float?";
 
     //audio
-    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioSource soundEffectSource;
+    [SerializeField] private AudioSource voSource;
     [SerializeField] private AudioClip[] clips;
     [SerializeField] private AudioClip buttonClick;
     [SerializeField] private AudioClip accepted;
@@ -43,6 +44,9 @@ public class ChildQuestionHandler : MonoBehaviour
     //particles
     [SerializeField] private ParticleSystem particleBalloons;
 
+    //anim
+    [SerializeField] private Animator balloonAnim;
+
     //GO
     [SerializeField] private GameObject getChildName;
     [SerializeField] private GameObject getChildQuestions;
@@ -52,12 +56,14 @@ public class ChildQuestionHandler : MonoBehaviour
     [SerializeField] private Transform questionBalloonsParent;
     [SerializeField] private GameObject[] questionBalloons;
     [SerializeField] private GameObject popTheBalloon;
-    [SerializeField] public List<string> q;
+    //[SerializeField] public List<string> q;
     [SerializeField] private List<string> qTag;
     [SerializeField] private Dictionary<int, string> childQuestions;
     [SerializeField] private GameObject detailedScrollArea;
     [SerializeField] private GameObject[] helpQuestionBalloons;
     [SerializeField] private GameObject[] helpQuestionBoxes;
+
+    [SerializeField] GameObject[] q;
 
     [Header("GAME DATA")]
     public List<string> STRL_childData;
@@ -91,7 +97,7 @@ public class ChildQuestionHandler : MonoBehaviour
         MIN_QUESTION_COUNT = 2;
         MAX_QUESTION_COUNT = 4;
         bharatAnim.SetBool("Think", true);
-        q = new List<string>();
+        //q = new List<string>();
 
         nameInputField.onValueChanged.AddListener(delegate { OnNameEnteredCheck(); });
         StartCheckingForChildInput();
@@ -129,31 +135,59 @@ public class ChildQuestionHandler : MonoBehaviour
 
     public void OnClickEnterQuestion()
     {
-        if (clipCount == clips.Length) clipCount = 0;   //resetting the audio clipCount back to '0' if audio clip list end is reached
+        /*        if (clipCount == clips.Length) clipCount = 0;   //resetting the audio clipCount back to '0' if audio clip list end is reached
+
+                //play sound and animation
+                PlaySE(clips[clipCount]);
+                clipCount++;
+
+                bharatAnim.SetTrigger("Jump");
+                particleBalloons.Play();
+
+                *//*        if (questionNo == MAX_QUESTION_COUNT)
+                        {
+                            enterButton.interactable = false;
+                        }*//*
+
+                string question = enteredQuestion.text;
+
+                //adding to dictionary
+                childQuestions.Add(questionNo, question);
+
+                //adding question to list
+                q.Add(question);
+                //setting tag
+                SetQuestionTag(question);
+                //find child caption
+                FindChildCaption(question);
+
+                //adding to player prefs
+                string questionNumber = questionNo.ToString();
+                PlayerPrefs.SetString(questionNumber, question);
+                PlayerPrefs.SetInt("qCount", questionNo);
+                //cleaing text after entering
+                questionInputField.text = "";
+
+
+
+                //incrementing question number
+                questionNo++;
+                qNo++;*/
 
         //play sound and animation
-        PlaySE(clips[clipCount]);
-        clipCount++;
-
-        bharatAnim.SetTrigger("Jump");
+        soundEffectSource.clip = clips[questionNo - 1];
+        soundEffectSource.Play();
         particleBalloons.Play();
 
-        /*        if (questionNo == MAX_QUESTION_COUNT)
-                {
-                    enterButton.interactable = false;
-                }*/
+        if (questionNo == MAX_QUESTION_COUNT)
+        {
+            enterButton.interactable = false;
+        }
 
         string question = enteredQuestion.text;
 
         //adding to dictionary
-        childQuestions.Add(questionNo, question);
-
-        //adding question to list
-        q.Add(question);
-        //setting tag
-        SetQuestionTag(question);
-        //find child caption
-        FindChildCaption(question);
+        //childQuestions.Add(questionNo, question);
 
         //adding to player prefs
         string questionNumber = questionNo.ToString();
@@ -162,28 +196,27 @@ public class ChildQuestionHandler : MonoBehaviour
         //cleaing text after entering
         questionInputField.text = "";
 
-
+        //setting tag
+        SetQuestionTag(question, questionNo);
 
         //incrementing question number
         questionNo++;
-        qNo++;
     }
 
     public void OnClickNextButton()
     {
-        slotChildQuestions.SetActive(true);
 
         if (questionNo <= MIN_QUESTION_COUNT)
         {
             AnalyzeQuestion();
 
             //play denied sound
-            audioSource.clip = denied;
-            audioSource.Play();
+            soundEffectSource.clip = denied;
+            soundEffectSource.Play();
         }
         else
         {
-
+            slotChildQuestions.SetActive(true);
 
             /* THI_TrackChildData();
 
@@ -192,8 +225,8 @@ public class ChildQuestionHandler : MonoBehaviour
              slotChildQuestions.SetActive(true);
 
              //play accepted sound
-             audioSource.clip = buttonClick;
-             audioSource.Play();*/
+             soundEffectSource.clip = buttonClick;
+             soundEffectSource.Play();*/
         }
     }
 
@@ -301,43 +334,74 @@ public class ChildQuestionHandler : MonoBehaviour
         popup.SetActive(false);
     }
 
-    public void SetQuestionTag(string question)
+    public void SetQuestionTag(string question, int qNo)
     {
+
+        /* if (question.Contains("why not") || question.Contains("Why not"))
+         {
+             qTag.Add("why not");
+         }
+         else if (question.Contains("why") || question.Contains("Why"))
+         {
+             qTag.Add("why");
+         }
+         else if (question.Contains("what if") || question.Contains("What if"))
+         {
+             qTag.Add("what if");
+         }
+         else if (question.Contains("what") || question.Contains("What"))
+         {
+             qTag.Add("what");
+         }
+         else if (question.Contains("who") || question.Contains("Who"))
+         {
+             qTag.Add("who");
+         }
+         else if (question.Contains("where") || question.Contains("Where"))
+         {
+             qTag.Add("where");
+         }
+         else if (question.Contains("when") || question.Contains("When"))
+         {
+             qTag.Add("when");
+         }
+         else if (question.Contains("how") || question.Contains("How"))
+         {
+             qTag.Add("how");
+         }*/
 
         if (question.Contains("why not") || question.Contains("Why not"))
         {
-            qTag.Add("why not");
+            q[qNo - 1].tag = "why not";
         }
         else if (question.Contains("why") || question.Contains("Why"))
         {
-            qTag.Add("why");
+            q[qNo - 1].tag = "why";
         }
         else if (question.Contains("what if") || question.Contains("What if"))
         {
-            qTag.Add("what if");
+            q[qNo - 1].tag = "what if";
         }
         else if (question.Contains("what") || question.Contains("What"))
         {
-            qTag.Add("what");
+            q[qNo - 1].tag = "what";
         }
         else if (question.Contains("who") || question.Contains("Who"))
         {
-            qTag.Add("who");
+            q[qNo - 1].tag = "who";
         }
         else if (question.Contains("where") || question.Contains("Where"))
         {
-            qTag.Add("where");
+            q[qNo - 1].tag = "where";
         }
         else if (question.Contains("when") || question.Contains("When"))
         {
-            qTag.Add("when");
+            q[qNo - 1].tag = "when";
         }
         else if (question.Contains("how") || question.Contains("How"))
         {
-            qTag.Add("how");
+            q[qNo - 1].tag = "how";
         }
-
-
     }
 
     public void OnClickSubmitButton()
@@ -374,7 +438,7 @@ public class ChildQuestionHandler : MonoBehaviour
         childData.answers = new List<Answers>();
 
         int count = 0;
-        for (int i = 0; i < q.Count; i++)
+        for (int i = 0; i < q.Length; i++)
         {
             if (PlayerPrefs.HasKey((i + 1) + "")) count++;
         }
@@ -414,8 +478,8 @@ public class ChildQuestionHandler : MonoBehaviour
 
     public void PlaySE(AudioClip clip)
     {
-        audioSource.clip = clip;
-        audioSource.Play();
+        soundEffectSource.clip = clip;
+        soundEffectSource.Play();
     }
 
     public void OnClickHelpButton()
@@ -539,6 +603,7 @@ public class ChildQuestionHandler : MonoBehaviour
         }
 
         detailedScrollArea.SetActive(false);
+        voSource.Stop();
     }
 
     IEnumerator PrintDemoQuestion()
@@ -559,9 +624,33 @@ public class ChildQuestionHandler : MonoBehaviour
         helpBalloonCount = balloonName - 1;
         OnClickBalloon();
     }
-
     public void OnHelpWindowBoxFalling()
     {
         detailedScrollArea.SetActive(true);
+
+        //disabling helpboxes before enabling one
+        foreach (GameObject temp in helpQuestionBoxes) temp.SetActive(false);
+
+        //enabling the box corresponding to the balloon popped
+        helpQuestionBoxes[childChoice - 1].SetActive(true);
+
+        PlaySE(fall);
+        StartCoroutine(PlayBalloonTalk());
+    }
+
+    IEnumerator PlayBalloonTalk()
+    {
+        yield return new WaitForSeconds(1.5f);
+        balloonAnim.SetTrigger("Talk");
+        PlayVO(responseClips[childChoice - 1]);
+
+        yield return new WaitForSeconds(responseClips[childChoice - 1].length);
+        balloonAnim.SetTrigger("StopTalk");
+    }
+
+    public void PlayVO(AudioClip clip)
+    {
+        voSource.clip = clip;
+        voSource.Play();
     }
 }

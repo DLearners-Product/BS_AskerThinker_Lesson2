@@ -29,12 +29,12 @@ public class ChildQuestions : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        for (int i = 0; i < cqhRef.q.Count; i++)
+       /* for (int i = 0; i < cqhRef.q.Count; i++)
         {
             instantiatedQuestion = Instantiate(qPrefab, qPanel);
             instantiatedQuestion.transform.GetChild(0).GetComponentInChildren<TextMeshProUGUI>().text = cqhRef.q[i];
             instantiatedQuestion.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
-        }
+        }*/
     }
 
 
