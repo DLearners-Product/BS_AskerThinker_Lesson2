@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Collections;
-using System.Threading.Tasks;
 
 public class ChildQuestionHandler : MonoBehaviour
 {
@@ -21,6 +20,7 @@ public class ChildQuestionHandler : MonoBehaviour
     [SerializeField] private AudioClip balloonPop;
     [SerializeField] private AudioClip fall;
     [SerializeField] private AudioClip[] responseClips;
+    [SerializeField] private AudioClip chimesClap;
 
     //animator
     [SerializeField] private Animator bharatAnim;
@@ -64,6 +64,11 @@ public class ChildQuestionHandler : MonoBehaviour
     [SerializeField] private GameObject[] helpQuestionBoxes;
 
     [SerializeField] GameObject[] q;
+    [SerializeField] private GameObject winScreen;
+    [SerializeField] private Sprite[] childCaptionSprites;
+    [SerializeField] private Image childCaptionImage;
+    [SerializeField] private TextMeshProUGUI childCaptionText;
+    [SerializeField] private TextMeshProUGUI winScreenChildName;
 
     [Header("GAME DATA")]
     public List<string> STRL_childData;
@@ -79,6 +84,9 @@ public class ChildQuestionHandler : MonoBehaviour
     private int childChoice;
     private int qNo;
     private string childCaption;
+
+    public static ChildQuestionHandler OBJ_ChildQuestionHandler;
+    private int slottedQuestions;
 
     private void Awake()
     {
@@ -102,6 +110,8 @@ public class ChildQuestionHandler : MonoBehaviour
         nameInputField.onValueChanged.AddListener(delegate { OnNameEnteredCheck(); });
         StartCheckingForChildInput();
         NewBalloon();
+
+        slottedQuestions = 0;
     }
 
     private void StartCheckingForChildInput()
@@ -193,8 +203,12 @@ public class ChildQuestionHandler : MonoBehaviour
         string questionNumber = questionNo.ToString();
         PlayerPrefs.SetString(questionNumber, question);
         PlayerPrefs.SetInt("qCount", questionNo);
+
         //cleaing text after entering
         questionInputField.text = "";
+
+        //evaluate child caption
+        FindChildCaption(question);
 
         //setting tag
         SetQuestionTag(question, questionNo);
@@ -217,6 +231,9 @@ public class ChildQuestionHandler : MonoBehaviour
         else
         {
             slotChildQuestions.SetActive(true);
+
+            Debug.Log("questionNo" + questionNo);
+            Debug.Log("slottedQuestions" + slottedQuestions);
 
             /* THI_TrackChildData();
 
@@ -293,7 +310,7 @@ public class ChildQuestionHandler : MonoBehaviour
             else questionCategories += qCategory[i] + ", ";
         }
 
-        missedQCategory.text = questionCategories;
+        //missedQCategory.text = questionCategories;
 
         popup.SetActive(true);
         childNameQuestionWeb.text = PlayerPrefs.GetString("childName");
@@ -327,6 +344,8 @@ public class ChildQuestionHandler : MonoBehaviour
             //fact finder
             childCaption = "Fact finder";
         }
+
+        Debug.Log(childCaption);
     }
 
     public void OnClickBackButton()
@@ -421,11 +440,11 @@ public class ChildQuestionHandler : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
-    {
-        Debug.Log("before clearing : " + childQuestions.Count);
-        childQuestions.Clear();
-    }
+    /*    private void OnDestroy()
+        {
+            Debug.Log("before clearing : " + childQuestions.Count);
+            childQuestions.Clear();
+        }*/
 
 
     //API CALL
@@ -486,6 +505,13 @@ public class ChildQuestionHandler : MonoBehaviour
     {
         PlaySE(buttonClick);
         helpWindow.SetActive(true);
+
+        //re-enabling box colliders to enable mouse hover audio
+        for (int i = 0; i < helpQuestionBalloons.Length; i++)
+        {
+            if (i != helpBalloonCount)
+                helpQuestionBalloons[i].GetComponent<BoxCollider2D>().enabled = true;
+        }
     }
 
     public void OnClickBalloon()
@@ -622,6 +648,15 @@ public class ChildQuestionHandler : MonoBehaviour
     {
         childChoice = balloonName;
         helpBalloonCount = balloonName - 1;
+
+        //disabling box colliders of other balloons
+        for (int i = 0; i < helpQuestionBalloons.Length; i++)
+        {
+            /*if (i != helpBalloonCount)
+                helpQuestionBalloons[i].GetComponent<BoxCollider2D>().enabled = false;*/
+            helpQuestionBalloons[i].GetComponent<BoxCollider2D>().enabled = false;
+        }
+
         OnClickBalloon();
     }
     public void OnHelpWindowBoxFalling()
@@ -652,5 +687,60 @@ public class ChildQuestionHandler : MonoBehaviour
     {
         voSource.clip = clip;
         voSource.Play();
+    }
+
+    public void IncrementSlottedQuestions()
+    {
+        slottedQuestions++;
+    }
+
+    public int GetSlottedQuestions()
+    {
+        return slottedQuestions;
+    }
+
+    public int GetActualQuestions()
+    {
+        return questionNo - 1;
+    }
+
+    public void ShowWin()
+    {
+        Invoke("ShowWinWithDelay", 1f);
+    }
+
+    public void ShowWinWithDelay()
+    {
+        winScreen.SetActive(true);
+
+        winScreenChildName.text = PlayerPrefs.GetString("childName");
+
+        PlaySE(chimesClap);
+
+        if (childCaption == "Fact finder")
+        {
+            childCaptionImage.sprite = childCaptionSprites[0];
+            childCaptionText.text = "You are a Fact finder!";
+        }
+        else if (childCaption == "Prober")
+        {
+            childCaptionImage.sprite = childCaptionSprites[1];
+            childCaptionText.text = "You are a Prober!";
+        }
+        else if (childCaption == "Investigator")
+        {
+            childCaptionImage.sprite = childCaptionSprites[2];
+            childCaptionText.text = "You are a Investigator!";
+        }
+        else if (childCaption == "Dreamer")
+        {
+            childCaptionImage.sprite = childCaptionSprites[3];
+            childCaptionText.text = "You are a Dreamer!";
+        }
+        else if (childCaption == "Whacky thinker")
+        {
+            childCaptionImage.sprite = childCaptionSprites[4];
+            childCaptionText.text = "You are a Whacky thinker!";
+        }
     }
 }

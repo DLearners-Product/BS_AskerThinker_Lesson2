@@ -12,6 +12,7 @@ public class ChildQuestionsOLD : MonoBehaviour
     [SerializeField] private TextMeshProUGUI q2;
     [SerializeField] private TextMeshProUGUI q3;
     [SerializeField] private TextMeshProUGUI q4;
+    [SerializeField] private TextMeshProUGUI childName;
 
     //GO
     [SerializeField] private GameObject instructionOverlay;
@@ -23,6 +24,8 @@ public class ChildQuestionsOLD : MonoBehaviour
         q2.text = PlayerPrefs.GetString("2");
         q3.text = PlayerPrefs.GetString("3");
         q4.text = PlayerPrefs.GetString("4");
+
+        childName.text = PlayerPrefs.GetString("childName");
     }
 
 

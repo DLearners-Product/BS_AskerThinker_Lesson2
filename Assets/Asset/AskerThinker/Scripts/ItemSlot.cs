@@ -39,6 +39,8 @@ public class ItemSlot : MonoBehaviour, IDropHandler
                 //playing correct answer sound effect
                 audioSource.clip = rightClip;
                 audioSource.Play();
+
+
             }
             else
             {

@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class ItemSlotOLD : MonoBehaviour, IDropHandler
 {
+    //ref
+    [SerializeField] private ChildQuestionHandler cqhRef;
+
     //audio
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip rightClip;
@@ -13,6 +16,11 @@ public class ItemSlotOLD : MonoBehaviour, IDropHandler
 
     //animator
     [SerializeField] private Animator animator;
+
+    private void Start()
+    {
+        cqhRef = FindObjectOfType<ChildQuestionHandler>();
+    }
 
     public void OnDrop(PointerEventData eventData)
     {
@@ -39,6 +47,14 @@ public class ItemSlotOLD : MonoBehaviour, IDropHandler
                 //playing correct answer sound effect
                 audioSource.clip = rightClip;
                 audioSource.Play();
+
+                cqhRef.IncrementSlottedQuestions();
+
+                if (cqhRef.GetSlottedQuestions() == cqhRef.GetActualQuestions())
+                    cqhRef.ShowWin();
+
+                Debug.Log("questionNo" + cqhRef.GetActualQuestions());
+                Debug.Log("slottedQuestions" + cqhRef.GetSlottedQuestions());
             }
             else
             {

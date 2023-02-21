@@ -24,7 +24,6 @@ public class DragAndDropOLD : MonoBehaviour, IPointerDownHandler, IBeginDragHand
         canvasGroup.blocksRaycasts = false;
 
         draggedItemInitialPos = transform.position;
-        draggedItemCategoryPos = transform.GetChild(1).position;
     }
 
     public void OnDrag(PointerEventData eventData)

@@ -1,0 +1,632 @@
+fileFormatVersion: 2
+guid: 161614147c56ce0468b32ffc765cd2dd
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4819015941891659712
+    second: Artboard 2_0
+  - first:
+      213: -703039442457294177
+    second: Artboard 2_1
+  - first:
+      213: 6628090299391235860
+    second: Artboard 2_2
+  - first:
+      213: 2777205809504900559
+    second: Artboard 2_3
+  - first:
+      213: 7590904950353206842
+    second: Artboard 2_4
+  - first:
+      213: -7710057754186431623
+    second: Artboard 2_5
+  - first:
+      213: 7300525285100921139
+    second: Artboard 2_6
+  - first:
+      213: -794446143300316520
+    second: Artboard 2_7
+  - first:
+      213: -8034256070243573892
+    second: Artboard 2_8
+  - first:
+      213: 4892123574511605341
+    second: Artboard 2_9
+  - first:
+      213: 6074265558378107039
+    second: Artboard 2_10
+  - first:
+      213: 1501036541382964609
+    second: Artboard 2_11
+  - first:
+      213: -8103925631550203995
+    second: Artboard 2_12
+  - first:
+      213: -7995378076309021493
+    second: Artboard 2_13
+  - first:
+      213: 7817210731538538328
+    second: Artboard 2_14
+  - first:
+      213: 1303860394715753682
+    second: Artboard 2_15
+  - first:
+      213: 9087770249557165747
+    second: Artboard 2_16
+  - first:
+      213: -8629724419617313356
+    second: Artboard 2_17
+  - first:
+      213: -5067084164882215240
+    second: Artboard 2_18
+  - first:
+      213: -5526787033377352293
+    second: Artboard 2_19
+  - first:
+      213: 174995706603890279
+    second: Artboard 2_20
+  - first:
+      213: 8826625720206155455
+    second: Artboard 2_21
+  - first:
+      213: 5831519075953787366
+    second: Artboard 2_22
+  - first:
+      213: -5436970766305917845
+    second: Artboard 2_23
+  - first:
+      213: -3064015644840983727
+    second: Artboard 2_24
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Artboard 2_0
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 1750
+        width: 400
+        height: 170
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c79567877590e240800000000000000
+      internalID: 4819015941891659712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Artboard 2_1
+      rect:
+        serializedVersion: 2
+        x: 692
+        y: 1832
+        width: 226
+        height: 97
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9a8e391a5d4e36f0800000000000000
+      internalID: -703039442457294177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Artboard 2_2
+      rect:
+        serializedVersion: 2
+        x: 1120
+        y: 1480
+        width: 361
+        height: 408
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4175d6a9205bbfb50800000000000000
+      internalID: 6628090299391235860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Artboard 2_3
+      rect:
+        serializedVersion: 2
+        x: 1656
+        y: 1728
+        width: 256
+        height: 264
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc5d0bf28fd9a8620800000000000000
+      internalID: 2777205809504900559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Artboard 2_4
+      rect:
+        serializedVersion: 2
+        x: 1484
+        y: 1640
+        width: 4
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3e9e8185df485960800000000000000
+      internalID: 7590904950353206842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Artboard 2_5
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 1453
+        width: 274
+        height: 156
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 973c8fb725f500590800000000000000
+      internalID: -7710057754186431623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Artboard 2_6
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 1464
+        width: 289
+        height: 160
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 331a234211da05560800000000000000
+      internalID: 7300525285100921139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Artboard 2_7
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 1186
+        width: 282
+        height: 161
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 892d76b117f89f4f0800000000000000
+      internalID: -794446143300316520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Artboard 2_8
+      rect:
+        serializedVersion: 2
+        x: 650
+        y: 1176
+        width: 272
+        height: 162
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7f1b92eba6908090800000000000000
+      internalID: -8034256070243573892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Artboard 2_9
+      rect:
+        serializedVersion: 2
+        x: 1136
+        y: 1164
+        width: 201
+        height: 220
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d561410b87054e340800000000000000
+      internalID: 4892123574511605341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Artboard 2_10
+      rect:
+        serializedVersion: 2
+        x: 1622
+        y: 1261
+        width: 236
+        height: 185
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f90548ea7502c4450800000000000000
+      internalID: 6074265558378107039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Artboard 2_11
+      rect:
+        serializedVersion: 2
+        x: 1696
+        y: 1248
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 185330418c0c4d410800000000000000
+      internalID: 1501036541382964609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Artboard 2_12
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 924
+        width: 292
+        height: 167
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a754451392198f80800000000000000
+      internalID: -8103925631550203995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Artboard 2_13
+      rect:
+        serializedVersion: 2
+        x: 603
+        y: 923
+        width: 264
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcc97ac3006ba0190800000000000000
+      internalID: -7995378076309021493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Artboard 2_14
+      rect:
+        serializedVersion: 2
+        x: 1172
+        y: 830
+        width: 116
+        height: 214
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85fd9b33ebf4c7c60800000000000000
+      internalID: 7817210731538538328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Artboard 2_15
+      rect:
+        serializedVersion: 2
+        x: 1351
+        y: 830
+        width: 121
+        height: 218
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2dcabbfee1e381210800000000000000
+      internalID: 1303860394715753682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Artboard 2_16
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 677
+        width: 79
+        height: 131
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b6c73594ee3e1e70800000000000000
+      internalID: 9087770249557165747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Artboard 2_17
+      rect:
+        serializedVersion: 2
+        x: 592
+        y: 672
+        width: 248
+        height: 104
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4bd2233dc5f0d3880800000000000000
+      internalID: -8629724419617313356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Artboard 2_19
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 419
+        width: 312
+        height: 258
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b95de4ea978ec43b0800000000000000
+      internalID: -5526787033377352293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Artboard 2_21
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 260
+        width: 164
+        height: 244
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbed63ab3597e7a70800000000000000
+      internalID: 8826625720206155455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Artboard 2_22
+      rect:
+        serializedVersion: 2
+        x: 631
+        y: 256
+        width: 188
+        height: 288
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e1c32fe3b7bde050800000000000000
+      internalID: 5831519075953787366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
