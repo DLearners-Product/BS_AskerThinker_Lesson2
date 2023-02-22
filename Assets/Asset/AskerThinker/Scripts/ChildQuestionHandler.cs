@@ -8,7 +8,7 @@ using System.Collections;
 public class ChildQuestionHandler : MonoBehaviour
 {
     //const
-    private string demoQ = "what made the balloon to float?";
+    private string demoQ = "what made the balloon float?";
 
     //audio
     [SerializeField] private AudioSource soundEffectSource;
@@ -133,7 +133,7 @@ public class ChildQuestionHandler : MonoBehaviour
 
     public void OnNewQuestionEnteredCheck()
     {
-        if (questionInputField.text.Length > 0)
+        if (questionInputField.text.Length > 10)
         {
             enterButton.gameObject.SetActive(true);
         }
@@ -730,7 +730,7 @@ public class ChildQuestionHandler : MonoBehaviour
         else if (childCaption == "Investigator")
         {
             childCaptionImage.sprite = childCaptionSprites[2];
-            childCaptionText.text = "You are a Investigator!";
+            childCaptionText.text = "You are an Investigator!";
         }
         else if (childCaption == "Dreamer")
         {
@@ -742,5 +742,11 @@ public class ChildQuestionHandler : MonoBehaviour
             childCaptionImage.sprite = childCaptionSprites[4];
             childCaptionText.text = "You are a Whacky thinker!";
         }
+    }
+
+    public void OnClickHelpBackButton()
+    {
+        helpWindow.SetActive(false);
+        PlaySE(buttonClick);
     }
 }
