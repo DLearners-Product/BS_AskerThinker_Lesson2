@@ -69,6 +69,8 @@ public class VideoPlayerControls : MonoBehaviour
     {
         videoPlayer.time = 0;
         videoPlayer.Play();
+        btnPlayPause.image.sprite = spritePause;
+        isVideoPlaying = true;
     }
 
     public void OnClickBackwardSeekButton()
