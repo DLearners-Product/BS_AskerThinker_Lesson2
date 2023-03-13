@@ -27,7 +27,6 @@ public class ChildQuestionHandler : MonoBehaviour
 
     //text
     [SerializeField] private TextMeshProUGUI enteredQuestion;
-    [SerializeField] private TextMeshProUGUI missedQCategory;
     [SerializeField] private TextMeshProUGUI childName;
     [SerializeField] private TextMeshProUGUI childQuestion;
     [SerializeField] private TextMeshProUGUI childNameQuestionWeb;
@@ -235,15 +234,15 @@ public class ChildQuestionHandler : MonoBehaviour
             Debug.Log("questionNo" + questionNo);
             Debug.Log("slottedQuestions" + slottedQuestions);
 
-            /* THI_TrackChildData();
+            THI_TrackChildData();
 
-             StartCoroutine(IN_SendDataToDB());
+            StartCoroutine(IN_SendDataToDB());
 
-             slotChildQuestions.SetActive(true);
+            slotChildQuestions.SetActive(true);
 
-             //play accepted sound
-             soundEffectSource.clip = buttonClick;
-             soundEffectSource.Play();*/
+            //play accepted sound
+            soundEffectSource.clip = buttonClick;
+            soundEffectSource.Play();
         }
     }
 
@@ -440,12 +439,11 @@ public class ChildQuestionHandler : MonoBehaviour
         }
     }
 
-    /*    private void OnDestroy()
-        {
-            Debug.Log("before clearing : " + childQuestions.Count);
-            childQuestions.Clear();
-        }*/
-
+    private void OnDestroy()
+    {
+        Debug.Log("before clearing : " + childQuestions.Count);
+        childQuestions.Clear();
+    }
 
     //API CALL
     public void THI_TrackChildData()
