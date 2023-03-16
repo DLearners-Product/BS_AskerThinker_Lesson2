@@ -95,11 +95,14 @@ public class ChildQuestionHandler : MonoBehaviour
         childChoice = 0;
         qNo = 0;
         childCaption = "";
+
     }
 
     void Start()
     {
         childQuestions = new Dictionary<int, string>();
+        childQuestions.Clear();
+
         questionNo = 1;
         MIN_QUESTION_COUNT = 2;
         MAX_QUESTION_COUNT = 4;
@@ -441,7 +444,6 @@ public class ChildQuestionHandler : MonoBehaviour
 
     private void OnDestroy()
     {
-        Debug.Log("before clearing : " + childQuestions.Count);
         childQuestions.Clear();
     }
 
@@ -747,4 +749,6 @@ public class ChildQuestionHandler : MonoBehaviour
         helpWindow.SetActive(false);
         PlaySE(buttonClick);
     }
+
+
 }

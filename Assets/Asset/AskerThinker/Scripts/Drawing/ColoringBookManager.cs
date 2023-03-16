@@ -10,7 +10,13 @@ using System.IO;
 
 public class ColoringBookManager : MonoBehaviour
 {
+    [SerializeField] private Button btnSkip;
+    [SerializeField] private GameObject instructions;
+    [SerializeField] private GameObject papers;
+
     #region variables
+
+
 
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioSource audioSource;
@@ -174,6 +180,8 @@ public class ColoringBookManager : MonoBehaviour
         }
 
         InitializeEverything();
+
+        papers.SetActive(false);
     }
 
     private Texture2D DuplicateTexture(Texture2D source)
@@ -1228,4 +1236,17 @@ public class ColoringBookManager : MonoBehaviour
 
 
     #endregion
+
+    public void OnClickSkipButton()
+    {
+        instructions.SetActive(false);
+        papers.SetActive(true);
+    }
+
+    public void OnClickInstructionsButton()
+    {
+        instructions.SetActive(true);
+        papers.SetActive(false);
+    }
+
 }
