@@ -25,7 +25,7 @@ public class Main_Blended : MonoBehaviour
     public string GameName;
 
     public GameObject G_Selected;
-   // public GameObject welcome, mainmenu, details;
+    // public GameObject welcome, mainmenu, details;
 
     public static Main_Blended OBJ_main_blended;
 
@@ -62,7 +62,7 @@ public class Main_Blended : MonoBehaviour
     public Sprite[] SPR_grid4lines;
     public GameObject G_Pointer;
     public Button[] BUT_BoardButtons;
-    public Sprite[]  SPR_Default;
+    public Sprite[] SPR_Default;
 
     // emerson -- project blue
     public string[] enablerComments;
@@ -102,19 +102,25 @@ public class Main_Blended : MonoBehaviour
 
     //WordDB Grammer
     public string[] STRA_beforeWords;
-   // public TextMeshProUGUI TEX_postDBconfirmation;
+    // public TextMeshProUGUI TEX_postDBconfirmation;
     public string STR_clickedWord;
-   // public GameObject[] GA_grammarPostButtons;
+    // public GameObject[] GA_grammarPostButtons;
     public bool B_Reset;
     public List<string> LS_WORDS;
-   // public Toggle TOG_noun, TOG_verb, TOG_adjective, TOG_adverb;
+    // public Toggle TOG_noun, TOG_verb, TOG_adjective, TOG_adverb;
     //public bool B_noun, B_verb, B_adjective, B_adverb;
     public bool B_highlight;
     public string HEXA_highlightDB, HEXA_onClick, HEXA_default;
-   // int I_Noun = 0, I_Adverb = 0, I_Adjective = 0, I_Verb = 0;
+    // int I_Noun = 0, I_Adverb = 0, I_Adjective = 0, I_Verb = 0;
     public string STR_Passage;
     public string STR_API;
     public bool B_Reader;
+
+
+    public List<string> STRL_DATA;
+    public string STR_DATA;
+
+
 
     void Awake()
     {
@@ -128,13 +134,13 @@ public class Main_Blended : MonoBehaviour
         AS_BGM.volume = 0.5f;
 
         Time.timeScale = 1;
-       // GameName = "Crash Game";
+        // GameName = "Crash Game";
 
         OBJ_main_blended = this;
 
-       // mainmenu.SetActive(true); // live
+        // mainmenu.SetActive(true); // live
 
-       /////////////////////////////////////////////////////////// STR_date_with_time = System.DateTime.Now.ToString("dd-MM-yy HH:mm");
+        /////////////////////////////////////////////////////////// STR_date_with_time = System.DateTime.Now.ToString("dd-MM-yy HH:mm");
 
         i_vol = 0;
         B_pause = false;
@@ -146,7 +152,7 @@ public class Main_Blended : MonoBehaviour
     private void Start()
     {
         LS_WORDS = new List<string>();
-       
+
         G_worksheet.transform.GetChild(0).gameObject.SetActive(false);
         G_Pointer.SetActive(false);
         G_write.SetActive(false);
@@ -174,10 +180,10 @@ public class Main_Blended : MonoBehaviour
         //WordDB Grammer
         STR_clickedWord = "";
         B_highlight = false;
-      //  for (int i = 0; i < GA_grammarPostButtons.Length; i++)
-      //  {
-      //      GA_grammarPostButtons[i].GetComponent<Button>().interactable = false;
-      //  }
+        //  for (int i = 0; i < GA_grammarPostButtons.Length; i++)
+        //  {
+        //      GA_grammarPostButtons[i].GetComponent<Button>().interactable = false;
+        //  }
     }
     private void Update()
     {
@@ -194,7 +200,7 @@ public class Main_Blended : MonoBehaviour
             pos.z = G_focus.transform.position.z - Camera.main.transform.position.z;
             G_focus.transform.position = Camera.main.ScreenToWorldPoint(pos);
         }
-       // G_hand
+        // G_hand
 
         if (G_hand.activeInHierarchy)
         {
@@ -206,10 +212,10 @@ public class Main_Blended : MonoBehaviour
         else
         {
             if (G_Pointer.activeInHierarchy == false)
-            Cursor.visible = true;
+                Cursor.visible = true;
         }
 
-        if(G_Pointer.activeInHierarchy)
+        if (G_Pointer.activeInHierarchy)
         {
             Cursor.visible = false;
             Vector3 pos = Input.mousePosition;
@@ -231,7 +237,7 @@ public class Main_Blended : MonoBehaviour
             if (G_focus.activeInHierarchy)
                 G_focus.SetActive(false);
 
-            if(G_Zoomrect.activeInHierarchy)
+            if (G_Zoomrect.activeInHierarchy)
             {
                 //Debug.Log("zoom off");
                 BG.gameObject.transform.localScale = new Vector2(1, 1);
@@ -245,21 +251,21 @@ public class Main_Blended : MonoBehaviour
             // {
             //     GA_grammarPostButtons[i].GetComponent<Button>().interactable = true;
             // }
-           // STR_clickedWord = "<color=" + HEXA_onClick + "><u>" + STR_clickedWord + "</u></color>";
+            // STR_clickedWord = "<color=" + HEXA_onClick + "><u>" + STR_clickedWord + "</u></color>";
         }
 
     }
     //WordDB Grammer
     public void BUT_postGrammerToDB()
     {
-      //  TEX_postDBconfirmation.text = "<color=" + HEXA_onClick + "><u>" + STR_clickedWord + "</u></color> has been added as a " + EventSystem.current.currentSelectedGameObject.name + " to DL database";
-      //  STR_clickedWord = "";
-      //  for (int i = 0; i < GA_grammarPostButtons.Length; i++)
-      //  {
-      //      GA_grammarPostButtons[i].GetComponent<Button>().interactable = false;
-      //  }
-      //  B_Reset = true;
-      //  Invoke("THI_confirmationTextDefault", 2f);
+        //  TEX_postDBconfirmation.text = "<color=" + HEXA_onClick + "><u>" + STR_clickedWord + "</u></color> has been added as a " + EventSystem.current.currentSelectedGameObject.name + " to DL database";
+        //  STR_clickedWord = "";
+        //  for (int i = 0; i < GA_grammarPostButtons.Length; i++)
+        //  {
+        //      GA_grammarPostButtons[i].GetComponent<Button>().interactable = false;
+        //  }
+        //  B_Reset = true;
+        //  Invoke("THI_confirmationTextDefault", 2f);
     }
 
     public void TOG_Noun()
@@ -330,7 +336,7 @@ public class Main_Blended : MonoBehaviour
     //Reader
     public void SynthesizeButtonOnClickHandler()
     {
-        if(B_Reader)
+        if (B_Reader)
         {
             GetVoicesButtonOnClickHandler();
             if (EventSystem.current.currentSelectedGameObject.GetComponent<Text>() != null)
@@ -392,13 +398,13 @@ public class Main_Blended : MonoBehaviour
         });
     }
 
-    IEnumerator SendAPI(string grammar,string colorcode)
+    IEnumerator SendAPI(string grammar, string colorcode)
     {
         yield return new WaitForSeconds(1f);
         WWWForm form = new WWWForm();
         form.AddField("passage", STR_Passage);
 
-       // Debug.Log("Sending :" + STR_Passage);
+        // Debug.Log("Sending :" + STR_Passage);
 
         UnityWebRequest www = UnityWebRequest.Post(STR_API, form);
         yield return www.SendWebRequest();
@@ -414,7 +420,7 @@ public class Main_Blended : MonoBehaviour
             JSONNode n = JSON.Parse(www.downloadHandler.text);
 
             LS_WORDS.Clear();
-           //LS_WORDS = new
+            //LS_WORDS = new
             for (int i = 0; i < n[grammar].Count; i++)
             {
                 Debug.Log(n[grammar][i]);
@@ -438,13 +444,13 @@ public class Main_Blended : MonoBehaviour
 
     public void THI_Separatewords(string content)
     {
-        
 
-      //  LS_noun.Clear();
-      //  for(int i=0;i<n["noun"].Count;i++)
-       // {
-       //     Debug.Log(n["noun"][i]);
-      //  }
+
+        //  LS_noun.Clear();
+        //  for(int i=0;i<n["noun"].Count;i++)
+        // {
+        //     Debug.Log(n["noun"][i]);
+        //  }
         /*LS_noun.Clear();
           LS_adjective.Clear();
           LS_sightwords.Clear();
@@ -505,7 +511,7 @@ public class Main_Blended : MonoBehaviour
     }
     public void BUT_Reader()
     {
-       // B_Reader = true;
+        // B_Reader = true;
         for (int i = 0; i < ImmersiveObjects.Length; i++)
         {
             if (ImmersiveObjects[i].activeInHierarchy)
@@ -523,19 +529,19 @@ public class Main_Blended : MonoBehaviour
         {
             if (ImmersiveObjects[i] != null)
             {
-                if(ImmersiveObjects[i].activeInHierarchy)
+                if (ImmersiveObjects[i].activeInHierarchy)
                 {
                     if (ImmersiveObjects[i].GetComponent<TextMeshProUGUI>() != null)
                     {
                         if (ImmersiveObjects[i].GetComponent<clickText>() != null)
                         {
-                           // if (B_Reader)
-                           // {
-                                ImmersiveObjects[i].GetComponent<clickText>().enabled = true;
-                                B_Reader = false;
-                                //reader off
-                                HEXA_default = "#" + ColorUtility.ToHtmlStringRGB(ImmersiveObjects[i].GetComponent<TextMeshProUGUI>().color);
-                           // }
+                            // if (B_Reader)
+                            // {
+                            ImmersiveObjects[i].GetComponent<clickText>().enabled = true;
+                            B_Reader = false;
+                            //reader off
+                            HEXA_default = "#" + ColorUtility.ToHtmlStringRGB(ImmersiveObjects[i].GetComponent<TextMeshProUGUI>().color);
+                            // }
                             /*else
                             {
                                 B_Reader = true;
@@ -544,21 +550,21 @@ public class Main_Blended : MonoBehaviour
                         }
                     }
                 }
-               /* else
-                {
-                    if (ImmersiveObjects[i].GetComponent<TextMeshProUGUI>() != null)
-                    {
-                        if (ImmersiveObjects[i].GetComponent<clickText>() != null)
-                        {
-                            ImmersiveObjects[i].GetComponent<clickText>().enabled = false;
-                          
-                        }
-                    }
-                }*/
+                /* else
+                 {
+                     if (ImmersiveObjects[i].GetComponent<TextMeshProUGUI>() != null)
+                     {
+                         if (ImmersiveObjects[i].GetComponent<clickText>() != null)
+                         {
+                             ImmersiveObjects[i].GetComponent<clickText>().enabled = false;
+
+                         }
+                     }
+                 }*/
             }
         }
     }
-    
+
 
     public void BUT_Hand(int index)
     {
@@ -569,13 +575,13 @@ public class Main_Blended : MonoBehaviour
         else
         {
             G_hand.SetActive(true);
-            G_hand.GetComponent<Image>().sprite = SPR_Hands[index-1];
+            G_hand.GetComponent<Image>().sprite = SPR_Hands[index - 1];
         }
 
     }
     public void BUT_Ruler(int index)
     {
-        if(index==0)
+        if (index == 0)
         {
             G_ruler.SetActive(false);
         }
@@ -586,7 +592,7 @@ public class Main_Blended : MonoBehaviour
     }
     public void BUT_Focus(int I_Focusindex)
     {
-        if(I_Focusindex==0)
+        if (I_Focusindex == 0)
         {
             G_focus.SetActive(false);
         }
@@ -597,7 +603,7 @@ public class Main_Blended : MonoBehaviour
             {
                 G_focus.transform.GetChild(i).gameObject.SetActive(false);
             }
-            G_focus.transform.GetChild(I_Focusindex-1).gameObject.SetActive(true);
+            G_focus.transform.GetChild(I_Focusindex - 1).gameObject.SetActive(true);
         }
     }
     public void BUT_FontcolorPick(int I_Color)
@@ -607,7 +613,7 @@ public class Main_Blended : MonoBehaviour
             if (ImmersiveObjects[i] != null)
             {
                 if (ImmersiveObjects[i].GetComponent<TextMeshProUGUI>() != null)
-                { 
+                {
                     ImmersiveObjects[i].GetComponent<TextMeshProUGUI>().color = CA_Colors[I_Color];
                 }
                 else if (ImmersiveObjects[i].GetComponent<Text>() != null)
@@ -636,18 +642,18 @@ public class Main_Blended : MonoBehaviour
                 {
                     ImmersiveObjects[i].GetComponent<TextMeshProUGUI>().font = TMPFA_Fonts[I_Font];
                 }
-                else if(ImmersiveObjects[i].GetComponent<Text>() != null)
+                else if (ImmersiveObjects[i].GetComponent<Text>() != null)
                 {
                     ImmersiveObjects[i].GetComponent<Text>().font = FA_Fonts[I_Font];
                 }
-                   
+
             }
         }
-      
+
     }
     public void BUT_zoomPick(float scale)
     {
-        if(scale==0)
+        if (scale == 0)
         {
             G_Zoomrect.SetActive(false);
             BG.gameObject.transform.localScale = new Vector2(1, 1);
@@ -681,7 +687,7 @@ public class Main_Blended : MonoBehaviour
     {
         index = levelno;
         if (index == 8) { I_worksheetindex = 0; }
-       // if (index == 9) { I_worksheetindex = 1; }
+        // if (index == 9) { I_worksheetindex = 1; }
         I_dummy++;
         if (I_dummy % 2 != 0)
         {
@@ -697,11 +703,11 @@ public class Main_Blended : MonoBehaviour
 
     public void BUT_draw()
     {
-       
+
         I_drawcount++;
         if (I_drawcount % 2 != 0)
         {
-            if(G_currenlevel.GetComponent<Draw>()!=null)
+            if (G_currenlevel.GetComponent<Draw>() != null)
             {
                 G_currenlevel.GetComponent<Draw>().enabled = false;
             }
@@ -712,7 +718,7 @@ public class Main_Blended : MonoBehaviour
             G_Pointer.SetActive(true);
             G_Pointer.transform.GetChild(0).gameObject.SetActive(false);
             G_Pointer.transform.GetChild(1).gameObject.SetActive(true);
-            for (int i=0;i<G_write.transform.childCount;i++)
+            for (int i = 0; i < G_write.transform.childCount; i++)
             {
                 G_write.transform.GetChild(i).gameObject.SetActive(false);
             }
@@ -734,7 +740,7 @@ public class Main_Blended : MonoBehaviour
     }
     public void THI_Changesprite(Sprite SPR)
     {
-        for (int i= 0;i<BUT_BoardButtons.Length;i++)
+        for (int i = 0; i < BUT_BoardButtons.Length; i++)
         {
             BUT_BoardButtons[i].GetComponent<Image>().sprite = SPR_Default[i];
         }
@@ -744,7 +750,7 @@ public class Main_Blended : MonoBehaviour
     {
         Draw.OBJ_draw.brush.GetComponent<LineRenderer>().SetColors(Color.black, Color.black);
         Draw.OBJ_draw.brush.GetComponent<LineRenderer>().SetWidth(0.05f, 0.05f);
-       
+
         G_Pointer.SetActive(true);
         G_Pointer.transform.GetChild(0).gameObject.SetActive(false);
         G_Pointer.transform.GetChild(1).gameObject.SetActive(true);
@@ -754,17 +760,17 @@ public class Main_Blended : MonoBehaviour
         IF_typing.gameObject.SetActive(false);
         IF_typing.text = "";
         G_write.transform.GetChild(4).GetComponent<Button>().interactable = true;
-       /* if (index == 0)
-        {
-            for (int i = 0; i < Draw.OBJ_draw.LA_Clones.Length; i++)
-            {
-                if (Draw.OBJ_draw.LA_Clones[i].startColor == Color.white)
-                {
-                    Draw.OBJ_draw.LA_Clones[i].sortingOrder = 2;
-                }
-            }
-        }*/
-        if (index!=0)
+        /* if (index == 0)
+         {
+             for (int i = 0; i < Draw.OBJ_draw.LA_Clones.Length; i++)
+             {
+                 if (Draw.OBJ_draw.LA_Clones[i].startColor == Color.white)
+                 {
+                     Draw.OBJ_draw.LA_Clones[i].sortingOrder = 2;
+                 }
+             }
+         }*/
+        if (index != 0)
         {
             G_write.transform.GetChild(4).GetComponent<Button>().interactable = false;
             Draw.OBJ_draw.BUT_erase();
@@ -910,7 +916,7 @@ public class Main_Blended : MonoBehaviour
             }
         }
     }
-  
+
     public void BUT_pause()
     {
         THI_videoSlidesPausePlay();
@@ -921,10 +927,10 @@ public class Main_Blended : MonoBehaviour
     {
         B_pause = false;
         levelno = level;
-      //  THI_videoSlidesMute();
+        //  THI_videoSlidesMute();
         THI_cloneLevels();
     }
-    
+
 
 
     public void BUT_volume()
@@ -1005,17 +1011,17 @@ public class Main_Blended : MonoBehaviour
     {
         storevalues values = new storevalues();
         RestClient.Put("https://blended-html-default-rtdb.firebaseio.com/"
-            + STR_date_with_time + "/" 
-            + GameName + "/" 
-            + GetValues.OBJ_getvalues.enabler_name + "/" 
-            + GetValues.OBJ_getvalues.parent_mobile + GetValues.OBJ_getvalues.parent_name + "/" 
-            + GetValues.OBJ_getvalues.child_name + "/" 
+            + STR_date_with_time + "/"
+            + GameName + "/"
+            + GetValues.OBJ_getvalues.enabler_name + "/"
+            + GetValues.OBJ_getvalues.parent_mobile + GetValues.OBJ_getvalues.parent_name + "/"
+            + GetValues.OBJ_getvalues.child_name + "/"
             + "Details" + ".json", values);
     }
 
     public void PostRatingToFirebase(string mySlideRating)
     {
-       string[] xRating =  mySlideRating.Split(',');
+        string[] xRating = mySlideRating.Split(',');
 
         ratingItemsArray[0] = Int32.Parse(xRating[0]);
         ratingItemsArray[1] = Int32.Parse(xRating[1]);
@@ -1023,7 +1029,7 @@ public class Main_Blended : MonoBehaviour
 
         slideRatingArray[levelno] = ratingItemsArray;
 
-        if(slideRatingArray[levelno] != null)
+        if (slideRatingArray[levelno] != null)
         {
             SlideRating rating = new SlideRating(slideRatingArray[levelno]);
             Debug.Log("Rating : " + rating);

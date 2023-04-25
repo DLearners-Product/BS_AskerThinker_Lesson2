@@ -58,10 +58,30 @@ public class GuessingActivity : MonoBehaviour
         }
     }
 
+    public void SaveChildData()
+    {
+        ChildsData childsData = new ChildsData();
+
+        childsData.question = questionBalloons[i].transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
+        childsData.category = "guess";
+        childsData.answer = guessInputField[i].transform.GetChild(0).transform.GetChild(2).GetComponent<TextMeshProUGUI>().text;
+        childsData.map = "O_L";
+
+        //converting string to JSON
+        //and saving it to STRL_DATA
+        //and joining it to STR_DATA
+        string toJson = JsonUtility.ToJson(childsData);
+        //Debug.Log("json : " + toJson);
+        Main_Blended.OBJ_main_blended.STRL_DATA.Add(toJson);
+        //Debug.Log("strl data : " + Main_Blended.OBJ_main_blended.STRL_DATA);
+        Main_Blended.OBJ_main_blended.STR_DATA = string.Join(",", Main_Blended.OBJ_main_blended.STRL_DATA);
+        Debug.Log("str data : " + Main_Blended.OBJ_main_blended.STR_DATA);
+    }
+
     public void OnClickSubmitButton()
     {
-        //store the answer
-        childsGuessAnswers.Add(i + 1, guessAnswers[i].text);
+        SaveChildData();
+
         PlayVO(buttonClick);
         saved.SetActive(true);
 
@@ -140,4 +160,71 @@ public class GuessingActivity : MonoBehaviour
         PlaySE(blackScreenClip);
         blackScreen.SetActive(true);
     }
+
+
+
+
+    /*
+        public void THI_TrackChildData()
+        {
+            ChildsData childsData = new ChildsData();
+            //childData.child_name = childName.text;
+            //childData.question = childQuestion.text;
+            childsData.question = guessInputField[i].text;
+
+
+            childData.answers = new List<Answers>();
+
+            int count = 0;
+            for (int i = 0; i < q.Length; i++)
+            {
+                if (PlayerPrefs.HasKey((i + 1) + "")) count++;
+            }
+
+            for (int i = 0; i < count; i++)
+            {
+                childData.answers.Add(new Answers(PlayerPrefs.GetString((i + 1).ToString())));
+            }
+
+            string toJson = JsonUtility.ToJson(childData);
+            Debug.Log("json : " + toJson);
+            STRL_childData.Add(toJson);
+            Debug.Log("child data : " + STRL_childData);
+            STR_Data = string.Join(",", STRL_childData);
+        }
+    */
+
+
+
+    /*
+        public IEnumerator IN_SendDataToDB()
+        {
+            WWWForm form = new WWWForm();
+            form.AddField("slide_id", "8");
+            form.AddField("user_id", Main_Blended.OBJ_main_blended.userID);
+            form.AddField("child_id", Main_Blended.OBJ_main_blended.childID);
+            form.AddField("answer_data", STR_Data);
+
+            Debug.Log("Child ID : " + Main_Blended.OBJ_main_blended.childID);
+            Debug.Log("User ID : " + Main_Blended.OBJ_main_blended.userID);
+
+            //Debug.Log("string_data : " + STR_Data);
+            UnityWebRequest www = UnityWebRequest.Post("https://dlearners.in/template_and_games/Game_Generator/api/save_child_blended_data.php", form);
+
+            yield return www.SendWebRequest();
+            if (www.isHttpError || www.isNetworkError)
+            {
+                Debug.Log("Sending data to DB failed : " + www.error);
+            }
+            else
+            {
+                Debug.Log("Sending data to DB success : " + www.downloadHandler.text);
+            }
+
+
+        }
+    */
+
+
+
 }
