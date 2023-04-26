@@ -34,11 +34,15 @@ public class GuessingActivity : MonoBehaviour
     private int i = 0;
     private Dictionary<int, string> childsGuessAnswers;
 
+    private int childDataCount;
+
     private void Start()
     {
         StartCheckingForChildInput();
 
         childsGuessAnswers = new Dictionary<int, string>();
+
+        childDataCount = 0;
     }
 
     private void StartCheckingForChildInput()
@@ -58,29 +62,29 @@ public class GuessingActivity : MonoBehaviour
         }
     }
 
-    public void SaveChildData()
+    public void THI_TrackChildData()
     {
         ChildsData childsData = new ChildsData();
 
         childsData.question = questionBalloons[i].transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
         childsData.category = "guess";
-        childsData.answer = guessInputField[i].transform.GetChild(0).transform.GetChild(2).GetComponent<TextMeshProUGUI>().text;
-        childsData.map = "O_L";
+        childsData.answer = guessInputField[i].GetComponent<TMP_InputField>().text;
+        childsData.map = "" + childDataCount + "_S";
+        childDataCount++;
 
         //converting string to JSON
         //and saving it to STRL_DATA
         //and joining it to STR_DATA
         string toJson = JsonUtility.ToJson(childsData);
-        //Debug.Log("json : " + toJson);
         Main_Blended.OBJ_main_blended.STRL_DATA.Add(toJson);
-        //Debug.Log("strl data : " + Main_Blended.OBJ_main_blended.STRL_DATA);
         Main_Blended.OBJ_main_blended.STR_DATA = string.Join(",", Main_Blended.OBJ_main_blended.STRL_DATA);
-        Debug.Log("str data : " + Main_Blended.OBJ_main_blended.STR_DATA);
+
+        Debug.Log(Main_Blended.OBJ_main_blended.STR_DATA);
     }
 
     public void OnClickSubmitButton()
     {
-        SaveChildData();
+        THI_TrackChildData();
 
         PlayVO(buttonClick);
         saved.SetActive(true);

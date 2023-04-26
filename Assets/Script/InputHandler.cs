@@ -24,9 +24,9 @@ public class InputHandler : MonoBehaviour
         if(Input.GetMouseButtonDown(0)){
             currentSlecetedGameObject = EventSystem.current.currentSelectedGameObject;
 
-            if(currentSlecetedGameObject.GetComponent<InputField>()){
+            if(currentSlecetedGameObject?.GetComponent<InputField>()){
                 selectedInput = currentSlecetedGameObject.GetComponent<InputField>();
-            }else if(currentSlecetedGameObject.GetComponent<TMP_InputField>()){
+            }else if(currentSlecetedGameObject?.GetComponent<TMP_InputField>()){
                 tmpSelectedInput = currentSlecetedGameObject.GetComponent<TMP_InputField>();
             }
 
