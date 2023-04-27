@@ -117,6 +117,7 @@ public class Main_Blended : MonoBehaviour
     public bool B_Reader;
 
 
+    //to collect child data
     public List<string> STRL_DATA;
     public string STR_DATA;
 

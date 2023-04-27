@@ -27,7 +27,8 @@ public class GuessingActivity : MonoBehaviour
     //GO
     [SerializeField] private GameObject saved;
     [SerializeField] private GameObject popTheBalloon;
-    [SerializeField] private GameObject whiteScreen;
+    [SerializeField] private GameObject fullWhiteScreen;
+    [SerializeField] private GameObject halfWhiteScreen;
     [SerializeField] private GameObject blackScreen;
     [SerializeField] private GameObject[] questionBalloons;
 
@@ -43,11 +44,13 @@ public class GuessingActivity : MonoBehaviour
         childsGuessAnswers = new Dictionary<int, string>();
 
         childDataCount = 0;
+
+        Invoke("DisableWhiteScreen", 6f);
     }
 
     private void StartCheckingForChildInput()
     {
-        guessInputField[i].onValueChanged.AddListener(delegate { OnGuessEnteredCheck(); });
+        guessInputField[i]?.onValueChanged.AddListener(delegate { OnGuessEnteredCheck(); });
     }
 
     public void OnGuessEnteredCheck()
@@ -60,6 +63,17 @@ public class GuessingActivity : MonoBehaviour
         {
             btnSubmit.gameObject.SetActive(false);
         }
+    }
+
+    public void EnableWhiteScreen()
+    {
+        fullWhiteScreen.SetActive(true);
+        halfWhiteScreen.SetActive(true);
+    }
+
+    public void DisableWhiteScreen()
+    {
+        fullWhiteScreen.SetActive(false);
     }
 
     public void THI_TrackChildData()
@@ -95,12 +109,15 @@ public class GuessingActivity : MonoBehaviour
 
     public void Save()
     {
+        halfWhiteScreen.SetActive(false);
+
         guessInputField[i].GetComponent<Animator>().SetTrigger("Disappear");
         PlayVO(whoosh);
         btnSubmit.gameObject.SetActive(false);
         guessInputField[i].text = "";
-        whiteScreen.SetActive(false);
 
+
+        halfWhiteScreen.SetActive(false);
         Invoke("ShowPopTheBalloon", 1.5f);
     }
 
@@ -133,6 +150,7 @@ public class GuessingActivity : MonoBehaviour
 
     public void SpawnNextBalloon()
     {
+        EnableWhiteScreen();
         i++;
 
         if (i == questionBalloons.Length)
@@ -142,9 +160,11 @@ public class GuessingActivity : MonoBehaviour
 
 
         questionBalloons[i].SetActive(true);
-        whiteScreen.SetActive(true);
+
         StartCheckingForChildInput();
         questionBalloons[i - 1].SetActive(false);
+
+        Invoke("DisableWhiteScreen", 6f);
     }
 
     public void PlaySE(AudioClip clip)

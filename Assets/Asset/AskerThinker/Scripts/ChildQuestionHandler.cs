@@ -70,8 +70,8 @@ public class ChildQuestionHandler : MonoBehaviour
     [SerializeField] private TextMeshProUGUI winScreenChildName;
 
     [Header("GAME DATA")]
-/*    public List<string> STRL_childData;
-    public string STR_Data;*/
+    /*    public List<string> STRL_childData;
+        public string STR_Data;*/
 
     private int MIN_QUESTION_COUNT;
     private int MAX_QUESTION_COUNT;
@@ -96,7 +96,7 @@ public class ChildQuestionHandler : MonoBehaviour
         clipCount = 0;
         childChoice = 0;
         qNo = 0;
-        childCaption = "";
+        childCaption = "Fact finder";
         childDataCount = 0;
     }
 
