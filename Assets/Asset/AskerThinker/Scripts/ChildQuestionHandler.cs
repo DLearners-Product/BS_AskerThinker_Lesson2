@@ -35,6 +35,7 @@ public class ChildQuestionHandler : MonoBehaviour
     //button
     [SerializeField] private Button submitButton;
     [SerializeField] private Button enterButton;
+    [SerializeField] private Button btn_HelpBack;
 
     //input field
     [SerializeField] private TMP_InputField nameInputField;
@@ -432,6 +433,7 @@ public class ChildQuestionHandler : MonoBehaviour
 
     private void OnDestroy()
     {
+        PlayerPrefs.DeleteAll();
         childQuestions.Clear();
     }
 
@@ -497,6 +499,7 @@ public class ChildQuestionHandler : MonoBehaviour
     {
         PlaySE(buttonClick);
         helpWindow.SetActive(true);
+        btn_HelpBack.gameObject.SetActive(true);
 
         //re-enabling box colliders to enable mouse hover audio
         for (int i = 0; i < helpQuestionBalloons.Length; i++)
@@ -654,6 +657,7 @@ public class ChildQuestionHandler : MonoBehaviour
     }
     public void OnHelpWindowBoxFalling()
     {
+        btn_HelpBack.gameObject.SetActive(false);
         detailedScrollArea.SetActive(true);
 
         //disabling helpboxes before enabling one
@@ -740,6 +744,7 @@ public class ChildQuestionHandler : MonoBehaviour
     public void OnClickHelpBackButton()
     {
         helpWindow.SetActive(false);
+        btn_HelpBack.gameObject.SetActive(true);
         PlaySE(buttonClick);
     }
 
